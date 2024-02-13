@@ -1,0 +1,64 @@
+{
+    "SubView": {
+        "prefix": "subview",
+            "body": [
+                "class _${1:} extends SubView<${2:}> {",
+                "\t@override",
+                "\tWidget buildView(BuildContext context, ${2:} controller) {",
+                "\t\treturn const Placeholder();",
+                "\t}",
+                "}"
+            ],
+                "description": "Create SubView"
+    },
+    "Controller": {
+        "prefix": "controller",
+            "body": [
+                "import '../../../../../../shared/presentation/ui/controllers/base/base_controller.dart';\n"
+        "class ${1:}Controller extends BaseController<${2:}> {",
+                "\t${1:}Controller(",
+                "\t\tsuper.logger,",
+                "\t\tsuper.localizor,",
+                "\t\tsuper.routeManager,",
+                "\t\tsuper.popupManager,",
+                "\t);",
+                "}\n"
+            ],
+                "description": "Create Controller"
+    },
+    "ControlledView": {
+        "prefix": "controlledview",
+            "body": [
+                "import 'package:flutter/material.dart';\n",
+                "import '../../../../../../../stack/base/presentation/controlled_view.dart';\n",
+                "class ${1:} extends ControlledView<${1:}Controller,${2:Object}> {",
+                "\t${1:}({",
+                "\t\tsuper.key,",
+                "\t\tsuper.params,",
+                "\t});\n",
+                "\t@override",
+                "\tWidget build(BuildContext context) {"
+        "\t\treturn const Placeholder();",
+                "\t}",
+                "}\n"
+            ],
+                "description": "Create ControlledView"
+    },
+    "UseCase": {
+        "prefix": "usecase",
+            "body": [
+                "import '../../../../stack/base/domain/use_case.dart';\n",
+                "import '../../../../stack/common/models/failure.dart';\n",
+                "import '../../../../stack/common/models/result.dart';\n",
+                "class ${1:} extends UseCase<${2:void},${3:Object},${4:void}> {",
+                "\t${1:}(this._${7:}, super.logger);\n",
+                "final ${5:TRepository} _${6:};\n",
+                "\t@override",
+                "\tFuture<Result<${3:Object}, Failure>> execute({void params}) {",
+                "\t\treturn ${8:}",
+                "\t}",
+                "}\n"
+            ],
+                "description": "Create UseCase"
+    };
+}
