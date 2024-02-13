@@ -9,13 +9,13 @@ class RouteManager {
 
   static final GoRouter _router = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: '/home',
+    initialLocation: RouteConfig.homeRoute.path,
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
-          path: '/home',
-          name: RouteConfig.homeRouteName,
+          path: RouteConfig.homeRoute.path,
+          name: RouteConfig.homeRoute.name,
           pageBuilder: (context, state) {
             // Params indicates whether the page is the favorites page or not
             return _buildPage(page: BooksPage(params: false), state: state);
@@ -23,8 +23,8 @@ class RouteManager {
           routes: [
             GoRoute(
               parentNavigatorKey: _rootNavigatorKey,
-              path: 'favorites',
-              name: RouteConfig.favoritesRouteName,
+              path: RouteConfig.favoritesRoute.path,
+              name: RouteConfig.favoritesRoute.name,
               pageBuilder: (context, state) {
                 return _buildPage(page: BooksPage(params: true), state: state);
               },
@@ -62,7 +62,13 @@ class RouteManager {
   }
 }
 
-abstract class RouteConfig {
-  static const homeRouteName = 'home';
-  static const favoritesRouteName = 'favorites';
+enum RouteConfig {
+  homeRoute('/home'),
+  favoritesRoute('favorites');
+
+  const RouteConfig(this.path);
+
+  final String path;
+
+  get name => path.replaceAll('/', '');
 }

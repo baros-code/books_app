@@ -14,6 +14,6 @@ class BooksPageController extends Controller<bool> {
   }
 
   void goToFavoritesPage() {
-    context.goNamed(RouteConfig.favoritesRouteName);
+    context.goNamed(RouteConfig.favoritesRoute.name);
   }
 }

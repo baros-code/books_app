@@ -17,6 +17,7 @@ class BooksPage extends ControlledView<BooksPageController, Object> {
       // Color(0XFF4893EB),
       appBarBackgroundColor: const Color(0xFF1C242A),
       backgroundColor: const Color(0xFF1C242A),
+      backButtonEnabled: controller.isFavoritesPage,
       actions: [
         if (!controller.isFavoritesPage)
           IconButton(

@@ -133,7 +133,7 @@ class _BackButton extends StatelessWidget {
     return IconButton(
       iconSize: 28,
       splashRadius: 24,
-      icon: const Icon(Icons.keyboard_backspace),
+      icon: const Icon(Icons.keyboard_backspace, color: Colors.white),
       onPressed: () => _onPressed(context),
     );
   }

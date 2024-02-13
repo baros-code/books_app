@@ -14,7 +14,7 @@ class ErrorPage extends StatelessWidget {
       body: Center(
           child: PrimaryButton(
         text: 'Go to home page',
-        onPressed: () => context.goNamed(RouteConfig.homeRouteName),
+        onPressed: () => context.goNamed(RouteConfig.homeRoute.name),
       )),
     );
   }
