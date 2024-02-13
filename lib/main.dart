@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:books_app/features/books/presentation/bloc/books_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'configs/api_config.dart';
 import 'configs/dependency_config.dart';
@@ -13,26 +15,20 @@ import 'stack/core/theme/dynamic_theme.dart';
 import 'stack/core/theme/theme_manager.dart';
 
 void main() {
-  // Run app handling Dart errors.
   runZonedGuarded(
     () async {
-      // Initialize all the app components.
       await _initializeComponents();
-      // Handle Flutter errors.
       FlutterError.onError = _onFlutterError;
-      // Run main app.
       runApp(
         MyApp(
           logger: locator<Logger>(),
           apiManager: locator<ApiManager>(),
-          // Get the currently saved theme mode to prevent flashing.
           themeMode: await locator<ThemeManager>().getThemeMode(),
           lightTheme: ThemeData.light(),
           darkTheme: ThemeData.dark(),
         ),
       );
     },
-    // Handle Dart errors.
     _onDartError,
   );
 }
@@ -90,11 +86,14 @@ class _MyAppState extends State<MyApp> {
       darkTheme: ThemeData.dark(),
       initialMode: widget.themeMode ?? ThemeMode.light,
       builder: (theme, darkTheme) {
-        return MaterialApp.router(
-          routerConfig: RouteManager.router,
-          title: 'Books App',
-          theme: theme,
-          darkTheme: darkTheme,
+        return MultiBlocProvider(
+          providers: _buildCubitProviders(),
+          child: MaterialApp.router(
+            routerConfig: RouteManager.router,
+            title: 'Books App',
+            theme: theme,
+            darkTheme: darkTheme,
+          ),
         );
       },
     );
@@ -106,15 +105,13 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  // List<BlocProvider> _buildCubitProviders() {
-  //   return [
-  //     BlocProvider<AuthCubit>(
-  //       create: (context) => locator<AuthCubit>(),
-  //     ),
-  //     BlocProvider<FleetsCubit>(
-  //       create: (context) => locator<FleetsCubit>(),
-  //     ),
-  //   ];
-  // }
+  // Helpers
+  List<BlocProvider> _buildCubitProviders() {
+    return [
+      BlocProvider<BooksCubit>(
+        create: (context) => locator<BooksCubit>(),
+      ),
+    ];
+  }
   // - Helpers
 }
