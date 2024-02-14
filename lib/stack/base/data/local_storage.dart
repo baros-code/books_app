@@ -76,10 +76,10 @@ abstract class LocalStorage<T extends Object> {
         }
       }
     } catch (e) {
-      _logger.error('Local storage items fetch failed: $e');
+      _logger.error('Fetching items from local storage failed: $e');
       return Result.failure(Failure(message: e.toString()));
     }
-    _logger.debug('Local storage items fetched: $items');
+    _logger.debug('Items fetched from local storage: $items');
     return Result.success(value: items);
   }
 

@@ -72,18 +72,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
             leading: widget.leading,
             trailing: _controller.text.isNotEmpty
                 ? [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _controller.clear();
-                          _dispatchCallback();
-                        });
-                      },
-                    )
+                    _buildClearButton(),
                   ]
                 : null,
             backgroundColor: MaterialStatePropertyAll(
@@ -126,6 +115,28 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
     );
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  // Helpers
+  GestureDetector _buildClearButton() {
+    return GestureDetector(
+      child: const Icon(
+        Icons.close,
+        color: Colors.white,
+      ),
+      onTap: () {
+        setState(() {
+          _controller.clear();
+          _dispatchCallback();
+        });
+      },
+    );
+  }
+
   void _dispatchCallback() {
     if (widget.onSubmitted != null) {
       widget.onSubmitted?.call(_controller.text);
@@ -133,4 +144,5 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
       widget.onChange?.call(_controller.text);
     }
   }
+  // - Helpers
 }

@@ -104,6 +104,12 @@ class BooksCubit extends SafeCubit<BooksState> {
     emit(RemoveFavoriteFailed());
   }
 
+  void resetFavoritesCacheVisibilities() {
+    for (final item in favoriteBooksCache) {
+      item.isVisible = true;
+    }
+  }
+
   // Helpers
   bool _checkIfBookInFavorites(String id) {
     return favoriteBooksCache.any((e) => e.id == id);

@@ -26,7 +26,6 @@ class RouteManager {
           path: RouteConfig.homeRoute.path,
           name: RouteConfig.homeRoute.name,
           pageBuilder: (context, state) {
-            // Params indicates whether the page is the favorites page or not
             return _buildPage(page: BooksPage(), state: state);
           },
           routes: [

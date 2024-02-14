@@ -11,11 +11,11 @@ class FavoriteBooksPageController extends Controller<Object> {
   );
 
   late BooksCubit _booksCubit;
+
   List<BookUiModel> get books => _booksCubit.favoriteBooksCache;
 
   @override
   void onStart() {
-    // TODO: implement onStart
     super.onStart();
     _booksCubit = context.read<BooksCubit>();
   }
@@ -30,5 +30,11 @@ class FavoriteBooksPageController extends Controller<Object> {
 
   void removeFavorite(BookUiModel book) {
     _booksCubit.removeFavorite(book);
+  }
+
+  @override
+  void onStop() {
+    _booksCubit.resetFavoritesCacheVisibilities();
+    super.onStop();
   }
 }
