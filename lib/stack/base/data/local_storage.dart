@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import '../../common/models/failure.dart';
+import '../../common/models/result.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
@@ -9,12 +11,12 @@ import '../../core/ioc/service_locator.dart';
 import '../../core/logging/logger.dart';
 
 abstract class LocalStorage<T extends Object> {
-  LocalStorage(this.logger);
+  LocalStorage(this._logger);
 
   // Static secure storage instance to be used to fetch Hive encryption key.
   static const _secureStorage = FlutterSecureStorage();
 
-  final Logger logger;
+  final Logger _logger;
 
   // Unique item key consists of the given generic type's string representation
   // and some random characters appended to it. Because it's important
@@ -23,115 +25,62 @@ abstract class LocalStorage<T extends Object> {
 
   var _isInitialized = false;
 
-  /// Gets a single item in [T] type by [key] from the storage.
-  @protected
-  Future<T?> getSingle(String key) async {
-    final box = await _getBox();
-    final value = await box.get(key);
-    // Return the value directly if it's null or primitive.
-    if (value == null || _isTypePrimitive()) return value;
-    // Deserialize the object's value and return it.
-    final jsonMap = json.decode(value);
-    return locator<T>(param1: jsonMap);
-  }
-
-  /// Adds a single [item] in [T] type into the storage.
-  @protected
-  Future<void> addSingle(T? item) async {
-    final box = await _getBox();
-    if (item == null || _isTypePrimitive()) {
-      // Add the item into the box directly if it's null or primitive.
-      await box.add(item);
-    } else {
-      // Serialize the item and add into the box as String.
-      final jsonMap = (item as dynamic).toJson();
-      final value = json.encode(jsonMap);
-      await box.add(value);
-    }
-  }
-
-  /// Adds a single [item] in [T] type into the storage after clearing all.
-  @protected
-  Future<void> addSingleAfterClear(T? item) async {
-    await clearAll();
-    return addSingle(item);
-  }
-
   /// Adds or updates a single [item] in [T] type by [key] in the storage.
   @protected
-  Future<void> putSingle(String key, T? item) async {
-    final box = await _getBox();
-    if (item == null || _isTypePrimitive()) {
-      // Put the item into the box directly if it's null or primitive.
-      await box.put(key, item);
-    } else {
-      // Serialize the item and add into the box as String.
-      final jsonMap = (item as dynamic).toJson();
-      final value = json.encode(jsonMap);
-      await box.put(key, value);
+  Future<Result> putSingle(String key, T? item) async {
+    try {
+      final box = await _getBox();
+      if (item == null || _isTypePrimitive()) {
+        // Put the item into the box directly if it's null or primitive.
+        await box.put(key, item);
+      } else {
+        // Serialize the item and add into the box as String.
+        final jsonMap = (item as dynamic).toJson();
+        final value = json.encode(jsonMap);
+        await box.put(key, value);
+      }
+    } catch (e) {
+      return Result.failure(Failure(message: e.toString()));
     }
+    return Result.success();
   }
 
   /// Removes a single item in [T] type by [key] from the storage.
   @protected
-  Future<void> removeSingle(String key) async {
-    final box = await _getBox();
-    return box.delete(key);
+  Future<Result> removeSingle(String key) async {
+    try {
+      final box = await _getBox();
+      await box.delete(key);
+    } catch (e) {
+      return Result.failure(Failure(message: e.toString()));
+    }
+    return Result.success();
   }
 
   /// Gets all the items in [T] type from the storage.
   @protected
-  Future<Iterable<T?>> getAll() async {
+  Future<Result<Iterable<T>, Failure>> getAll() async {
     final box = await _getBox();
-    final items = <T?>[];
-    for (final key in box.keys) {
-      final value = await box.get(key);
-      if (value == null || _isTypePrimitive()) {
-        // Add the value into the list directly if it's null or primitive.
-        items.add(value);
-      } else {
-        // Deserialize the value and add into the list as object.
-        final jsonMap = json.decode(value);
-        final item = locator<T>(param1: jsonMap);
-        items.add(item);
+    final items = <T>[];
+    try {
+      for (final key in box.keys) {
+        final value = await box.get(key);
+        if (value == null || _isTypePrimitive()) {
+          // Add the value into the list directly if it's null or primitive.
+          items.add(value);
+        } else {
+          // Deserialize the value and add into the list as object.
+          final jsonMap = json.decode(value);
+          final item = locator<T>(param1: jsonMap);
+          items.add(item);
+        }
       }
+    } catch (e) {
+      _logger.error('Local storage items fetch failed: $e');
+      return Result.failure(Failure(message: e.toString()));
     }
-    return items;
-  }
-
-  /// Adds [items] in [T] type into the storage.
-  @protected
-  Future<void> addItems(Iterable<T?> items) async {
-    for (final item in items) {
-      await addSingle(item);
-    }
-  }
-
-  /// Adds [items] in [T] type into the storage after clearing all.
-  @protected
-  Future<void> addItemsAfterClear(Iterable<T?> items) async {
-    await clearAll();
-    return addItems(items);
-  }
-
-  /// Removes items in [T] type by [keys] from the storage.
-  @protected
-  Future<void> removeItems(Iterable<String> keys) async {
-    final box = await _getBox();
-    return box.deleteAll(keys);
-  }
-
-  /// Clears all the items in [T] type in the storage.
-  @protected
-  Future<void> clearAll() async {
-    final box = await _getBox();
-    await box.clear();
-  }
-
-  /// Gets the unique item representing [T] type from the storage.
-  @protected
-  Future<T?> getUniqueItem() {
-    return getSingle(_uniqueItemKey);
+    _logger.debug('Local storage items fetched: $items');
+    return Result.success(value: items);
   }
 
   /// Updates the unique [item] representing [T] type in the storage.

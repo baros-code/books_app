@@ -47,6 +47,7 @@ class _Body extends SubView<BooksPageController> {
             leading: const Icon(Icons.search, color: Colors.white),
             onSubmitted: (value) => controller.searchBooks(value),
           ),
+          const SizedBox(height: 8),
           _ListView(),
         ],
       ),
@@ -68,7 +69,7 @@ class _ListView extends SubView<BooksPageController> {
           child: state is BooksLoading
               ? const Center(child: CircularProgressIndicator())
               : BooksListView(
-                  books, 
+                  books,
                   onBookDoubleTap: controller.addFavorite,
                   onBookLongPress: controller.removeFavorite,
                 ),

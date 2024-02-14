@@ -1,4 +1,5 @@
-import 'package:books_app/features/books/presentation/ui/pages/favorite_books_page.dart';
+import '../../features/books/presentation/ui/pages/favorite_books_page.dart';
+import '../../shared/presentation/ui/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,9 +11,16 @@ class RouteManager {
 
   static final GoRouter _router = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: RouteConfig.homeRoute.path,
+    initialLocation: RouteConfig.splashRoute.path,
     debugLogDiagnostics: true,
     routes: [
+      GoRoute(
+        path: RouteConfig.splashRoute.path,
+        name: RouteConfig.splashRoute.name,
+        pageBuilder: (context, state) {
+          return _buildPage(page: SplashPage(), state: state);
+        },
+      ),
       GoRoute(
           parentNavigatorKey: _rootNavigatorKey,
           path: RouteConfig.homeRoute.path,
@@ -64,6 +72,7 @@ class RouteManager {
 }
 
 enum RouteConfig {
+  splashRoute('/splash'),
   homeRoute('/home'),
   favoritesRoute('favorites');
 

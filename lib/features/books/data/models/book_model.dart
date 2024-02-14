@@ -21,6 +21,9 @@ class BookModel {
       _$BookModelFromJson(json);
   Map<String, dynamic> toJson() => _$BookModelToJson(this);
 
+  @override
+  String toString() => '{${bookInfo?.title} with id: $id)}';
+
   factory BookModel.fromEntity(Book entity) {
     return BookModel(
       id: entity.id,

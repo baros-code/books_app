@@ -24,6 +24,7 @@ class FavoriteBooksPage
       title: const BooksPageTitle('Favoriler'),
       // TODO(Baran): Add these colors as primary color to the theme
       // Color(0XFF4893EB),
+      backButtonEnabled: true,
       appBarBackgroundColor: const Color(0xFF1C242A),
       backgroundColor: const Color(0xFF1C242A),
       body: _Body(),
@@ -43,8 +44,9 @@ class _Body extends SubView<FavoriteBooksPageController> {
             hintStyle: const TextStyle(color: Colors.white),
             backgroundColor: Colors.transparent,
             leading: const Icon(Icons.search, color: Colors.white),
-            onSubmitted: (value) => controller.searchBooks(value),
+            onChange: (value) => controller.searchBooks(value),
           ),
+          const SizedBox(height: 8),
           _ListView(),
         ],
       ),
@@ -61,7 +63,8 @@ class _ListView extends SubView<FavoriteBooksPageController> {
     return BlocBuilder<BooksCubit, BooksState>(
       buildWhen: (previous, current) => current is BooksUpdated,
       builder: (context, state) {
-        final books = state is BooksUpdated ? state.favoriteBooks : controller.books;
+        final books =
+            state is BooksUpdated ? state.favoriteBooks : controller.books;
         return Expanded(
           child: BooksListView(
             books,

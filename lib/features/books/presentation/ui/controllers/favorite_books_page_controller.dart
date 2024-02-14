@@ -21,7 +21,6 @@ class FavoriteBooksPageController extends Controller<Object> {
   }
 
   void searchBooks(String searchText) {
-    if (searchText.isEmpty) return;
     _booksCubit.searchFavoriteBooks(searchText);
   }
 

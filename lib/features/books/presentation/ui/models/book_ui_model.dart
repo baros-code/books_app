@@ -13,6 +13,13 @@ class BookUiModel extends Book {
   bool isVisible;
   bool isFavorite;
 
+  Book toEntity() {
+    return Book(
+      id: id,
+      bookInfo: bookInfo,
+    );
+  }
+
   static BookUiModel fromEntity(Book entity) {
     return BookUiModel(
       id: entity.id,
@@ -22,7 +29,7 @@ class BookUiModel extends Book {
     );
   }
 
-  copyWith({
+  BookUiModel copyWith({
     String? id,
     BookInfo? bookInfo,
     bool? isVisible,

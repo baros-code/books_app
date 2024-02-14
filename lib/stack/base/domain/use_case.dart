@@ -20,7 +20,7 @@ abstract class UseCase<TInput, TOutput extends Result<dynamic, Failure>, TEvent>
     if (_isRunning) cancelToken.cancel();
     super.stop();
   }
- 
+
   /// Executes use case with the given [params] and
   /// returns a FutureOr of a [TOutput] instance.
   @nonVirtual

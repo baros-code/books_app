@@ -14,3 +14,9 @@ class BooksUpdated extends BooksState {
 }
 
 class BooksFetchFailed extends BooksState {}
+
+class FavoritesFetchFailed extends BooksState {}
+
+class AddFavoriteFailed extends BooksState {}
+
+class RemoveFavoriteFailed extends BooksState {}

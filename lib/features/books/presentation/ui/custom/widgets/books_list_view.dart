@@ -25,13 +25,14 @@ class BooksListView extends StatelessWidget {
             itemBuilder: (context, index) {
               final book = books[index];
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: BookCard(
-                  book,
-                  onDoubleTap: () => onBookDoubleTap(book),
-                  onLongPress: () => onBookLongPress(book),
-                ),
-              );
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: book.isVisible
+                      ? BookCard(
+                          book,
+                          onDoubleTap: () => onBookDoubleTap(book),
+                          onLongPress: () => onBookLongPress(book),
+                        )
+                      : const SizedBox.shrink());
             })
         : const Center(child: EmptyView.builder());
   }

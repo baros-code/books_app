@@ -58,5 +58,14 @@
                 "}\n"
             ],
                 "description": "Create UseCase"
-    };
+    },
+    "Helpers": {
+        "prefix": "helpers",
+        "body": [
+            "// Helpers",
+            "${1:void} _${2:}(${3:}) {\n\t${4:}\n}",
+            "// - Helpers"
+        ],
+        "description": "Helpers Tag"
+    },
 }

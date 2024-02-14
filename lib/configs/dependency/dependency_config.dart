@@ -1,11 +1,4 @@
-import 'package:books_app/features/books/data/data_sources/remote/books_remote_service.dart';
-import 'package:books_app/features/books/data/repositories/books_repository_impl.dart';
-import 'package:books_app/features/books/domain/repositories/books_repository.dart';
-import 'package:books_app/features/books/domain/use_cases/get_books.dart';
-import 'package:books_app/features/books/presentation/bloc/books_cubit.dart';
-import 'package:books_app/features/books/presentation/ui/controllers/books_page_controller.dart';
-import 'package:books_app/features/books/presentation/ui/controllers/favorite_books_page_controller.dart';
-import 'package:books_app/stack/core/ioc/service_locator.dart';
+part of 'dependency_imports.dart';
 
 abstract class DependencyConfig {
   static void register() {
@@ -14,11 +7,14 @@ abstract class DependencyConfig {
     _registerUseCases();
     _registerRepositories();
     _registerRemoteServices();
-    // Local Storages
-    // _registerLocalStorages();
+    _registerLocalStorages();
+    _registerModels();
   }
 
   static void _registerControllers() {
+    locator.registerFactory(
+      () => SplashPageController(locator(), locator()),
+    );
     locator.registerFactory(
       () => BooksPageController(locator(), locator()),
     );
@@ -29,7 +25,7 @@ abstract class DependencyConfig {
 
   static void _registerCubits() {
     locator.registerFactory(
-      () => BooksCubit(locator()),
+      () => BooksCubit(locator(), locator(), locator(), locator()),
     );
   }
 
@@ -37,17 +33,38 @@ abstract class DependencyConfig {
     locator.registerFactory(
       () => GetBooks(locator(), locator()),
     );
+    locator.registerFactory(
+      () => GetFavorites(locator(), locator()),
+    );
+    locator.registerFactory(
+      () => AddFavorite(locator(), locator()),
+    );
+    locator.registerFactory(
+      () => RemoveFavorite(locator(), locator()),
+    );
   }
 
   static void _registerRepositories() {
     locator.registerLazySingleton<BooksRepository>(
-      () => BooksRepositoryImpl(locator()),
+      () => BooksRepositoryImpl(locator(), locator()),
     );
   }
 
   static void _registerRemoteServices() {
     locator.registerLazySingleton<BooksRemoteService>(
       () => BooksRemoteServiceImpl(locator()),
+    );
+  }
+
+  static void _registerLocalStorages() {
+    locator.registerLazySingleton<BooksLocalStorage>(
+      () => BooksLocalStorageImpl(locator()),
+    );
+  }
+
+  static void _registerModels() {
+    locator.registerFactoryParam<BookModel, Map<String, dynamic>, void>(
+      (json, _) => BookModel.fromJson(json),
     );
   }
 }
