@@ -11,7 +11,7 @@ class FavoriteBooksPageController extends Controller<Object> {
   );
 
   late BooksCubit _booksCubit;
-  List<BookUiModel> get books => _booksCubit.booksCache;
+  List<BookUiModel> get books => _booksCubit.favoriteBooksCache;
 
   @override
   void onStart() {

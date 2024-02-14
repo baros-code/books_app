@@ -1,9 +1,9 @@
 import 'package:books_app/shared/constants/custom_images.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../shared/presentation/ui/custom/widgets/custom_card.dart';
-import '../../../../../../shared/presentation/ui/custom/widgets/custom_text.dart';
 import '../../models/book_ui_model.dart';
 
 class BookCard extends StatefulWidget {
@@ -15,48 +15,52 @@ class BookCard extends StatefulWidget {
   });
 
   final BookUiModel book;
-  final void Function(BookUiModel) onDoubleTap;
-  final void Function(BookUiModel) onLongPress;
+  final void Function() onDoubleTap;
+  final void Function() onLongPress;
 
   @override
   State<BookCard> createState() => _BookCardState();
 }
 
 class _BookCardState extends State<BookCard> {
-  late BookUiModel _book;
-
+  late bool _isFavorite;
   @override
   void initState() {
     super.initState();
-    _book = widget.book.copyWith();
+    _isFavorite = widget.book.isFavorite;
+  }
+
+  @override
+  void didUpdateWidget(covariant BookCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _isFavorite = widget.book.isFavorite;
   }
 
   @override
   Widget build(BuildContext context) {
-    final title = _book.bookInfo.title;
-    final author = _book.bookInfo.author;
-    final publisher = _book.bookInfo.publisher;
-    final publishedDate = _book.bookInfo.publishedDate;
-    final pageCount = _book.bookInfo.pageCount;
+    final title = widget.book.bookInfo.title;
+    final author = widget.book.bookInfo.author;
+    final publisher = widget.book.bookInfo.publisher;
+    final publishedDate = widget.book.bookInfo.publishedDate;
+    final pageCount = widget.book.bookInfo.pageCount;
+    final imageLinks = widget.book.bookInfo.imageLinks;
     return InkWell(
       onDoubleTap: () {
-        if (_book.isFavorite) return;
+        if (_isFavorite) return;
         setState(() {
-          _book.isFavorite = true;
-          widget.onDoubleTap(_book);
+          widget.onDoubleTap();
         });
       },
       onLongPress: () {
-        if (!_book.isFavorite) return;
+        if (!_isFavorite) return;
         setState(() {
-          _book.isFavorite = false;
-          widget.onLongPress(_book);
+          widget.onLongPress();
         });
       },
       child: CustomCard(
         height: 125,
         padding: const EdgeInsets.all(8),
-        backgroundColor: Colors.transparent,
+        backgroundColor: _isFavorite ? Colors.blue : Colors.transparent,
         enableShadows: false,
         showBorder: true,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -64,7 +68,7 @@ class _BookCardState extends State<BookCard> {
         child: Row(
           children: [
             CachedNetworkImage(
-              imageUrl: _book.bookInfo.imageLinks.thumbnail,
+              imageUrl: imageLinks.smallThumbnail,
               placeholder: (context, url) => const CircularProgressIndicator(),
               errorWidget: (context, url, error) =>
                   Image.asset(CustomImages.bookPlaceHolder),
@@ -87,11 +91,11 @@ class _BookCardState extends State<BookCard> {
                   ),
                   _CardContent(
                     'Author: $author',
-                    isVisible: _book.bookInfo.author.isNotEmpty,
+                    isVisible: author.isNotEmpty,
                   ),
                   _CardContent(
                     'Publisher: $publisher',
-                    isVisible: _book.bookInfo.publisher.isNotEmpty,
+                    isVisible: publisher.isNotEmpty,
                   ),
                   const Spacer(),
                   Row(
@@ -101,9 +105,11 @@ class _BookCardState extends State<BookCard> {
                         isVisible: publishedDate.isNotEmpty,
                       ),
                       if (publishedDate.isNotEmpty) const SizedBox(width: 8),
-                      _CardContent(
-                        'Page Count: $pageCount',
-                        isVisible: pageCount != -1,
+                      Expanded(
+                        child: _CardContent(
+                          'Pages: $pageCount',
+                          isVisible: pageCount != -1,
+                        ),
                       ),
                     ],
                   ),
@@ -131,9 +137,10 @@ class _CardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isVisible
-        ? CustomText(
+        ? Text(
             content,
-            isSingleLine: true,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: textStyle ?? const TextStyle(color: Colors.white),
           )
         : const SizedBox.shrink();

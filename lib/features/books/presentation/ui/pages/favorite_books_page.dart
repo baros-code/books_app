@@ -61,7 +61,7 @@ class _ListView extends SubView<FavoriteBooksPageController> {
     return BlocBuilder<BooksCubit, BooksState>(
       buildWhen: (previous, current) => current is BooksUpdated,
       builder: (context, state) {
-        final books = state is BooksUpdated ? state.books : controller.books;
+        final books = state is BooksUpdated ? state.favoriteBooks : controller.books;
         return Expanded(
           child: BooksListView(
             books,

@@ -7,9 +7,10 @@ class BooksInitial extends BooksState {}
 class BooksLoading extends BooksState {}
 
 class BooksUpdated extends BooksState {
-  BooksUpdated(this.books);
+  BooksUpdated(this.books, this.favoriteBooks);
 
   final List<BookUiModel> books;
+  final List<BookUiModel> favoriteBooks;
 }
 
 class BooksFetchFailed extends BooksState {}

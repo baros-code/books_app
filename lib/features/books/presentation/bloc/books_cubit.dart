@@ -31,7 +31,7 @@ class BooksCubit extends SafeCubit<BooksState> with UseCaseCancelMixin {
           result.value!.items.map((e) => BookUiModel.fromEntity(e)).toList();
       booksCache.clear();
       booksCache.addAll(uiModels);
-      emit(BooksUpdated(booksCache));
+      emit(BooksUpdated(booksCache, favoriteBooksCache));
       return;
     }
     emit(BooksFetchFailed());
@@ -39,17 +39,24 @@ class BooksCubit extends SafeCubit<BooksState> with UseCaseCancelMixin {
 
   void searchFavoriteBooks(String searchText) {
     if (searchText.isEmpty) return;
-    final filteredBooks = favoriteBooksCache
-        .where((e) => e.bookInfo.title.contains(searchText))
-        .toList();
-    emit(BooksUpdated(filteredBooks));
+    for (final item in favoriteBooksCache) {
+      if (item.bookInfo.title.contains(searchText)) {
+        item.isVisible = true;
+      }
+      item.isVisible = false;
+    }
+    emit(BooksUpdated(booksCache, favoriteBooksCache));
   }
 
   void addFavorite(BookUiModel book) {
+    book.isFavorite = true;
     favoriteBooksCache.add(book);
+    emit(BooksUpdated(booksCache, favoriteBooksCache));
   }
 
   void removeFavorite(BookUiModel book) {
+    book.isFavorite = false;
     favoriteBooksCache.remove(book);
+    emit(BooksUpdated(booksCache, favoriteBooksCache));
   }
 }

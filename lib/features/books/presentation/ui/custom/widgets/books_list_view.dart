@@ -28,8 +28,8 @@ class BooksListView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: BookCard(
                   book,
-                  onDoubleTap: (newBook) => onBookDoubleTap(newBook),
-                  onLongPress: (newBook) => onBookLongPress(newBook),
+                  onDoubleTap: () => onBookDoubleTap(book),
+                  onLongPress: () => onBookLongPress(book),
                 ),
               );
             })
