@@ -15,11 +15,9 @@
         "prefix": "controller",
             "body": [
                 "import '../../../../../../shared/presentation/ui/controllers/base/base_controller.dart';\n"
-        "class ${1:}Controller extends BaseController<${2:}> {",
+        "class ${1:}Controller extends Controller<${2:}> {",
                 "\t${1:}Controller(",
                 "\t\tsuper.logger,",
-                "\t\tsuper.localizor,",
-                "\t\tsuper.routeManager,",
                 "\t\tsuper.popupManager,",
                 "\t);",
                 "}\n"

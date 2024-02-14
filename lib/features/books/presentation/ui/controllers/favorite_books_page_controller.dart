@@ -1,31 +1,28 @@
-import 'package:books_app/features/books/presentation/ui/models/book_ui_model.dart';
-
-import '../../../../../configs/router/route_manager.dart';
 import '../../bloc/books_cubit.dart';
-import '../../../../../stack/base/presentation/controller.dart';
+import '../models/book_ui_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
-class BooksPageController extends Controller<Object> {
-  BooksPageController(super.logger, super.popupManager);
+import '../../../../../stack/base/presentation/controller.dart';
+
+class FavoriteBooksPageController extends Controller<Object> {
+  FavoriteBooksPageController(
+    super.logger,
+    super.popupManager,
+  );
 
   late BooksCubit _booksCubit;
-
   List<BookUiModel> get books => _booksCubit.booksCache;
 
   @override
   void onStart() {
+    // TODO: implement onStart
     super.onStart();
     _booksCubit = context.read<BooksCubit>();
   }
 
-  void goToFavoritesPage() {
-    context.goNamed(RouteConfig.favoritesRoute.name);
-  }
-
   void searchBooks(String searchText) {
     if (searchText.isEmpty) return;
-    _booksCubit.fetchBooks(searchText);
+    _booksCubit.searchFavoriteBooks(searchText);
   }
 
   void addFavorite(BookUiModel book) {

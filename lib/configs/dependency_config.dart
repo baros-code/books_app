@@ -4,6 +4,7 @@ import 'package:books_app/features/books/domain/repositories/books_repository.da
 import 'package:books_app/features/books/domain/use_cases/get_books.dart';
 import 'package:books_app/features/books/presentation/bloc/books_cubit.dart';
 import 'package:books_app/features/books/presentation/ui/controllers/books_page_controller.dart';
+import 'package:books_app/features/books/presentation/ui/controllers/favorite_books_page_controller.dart';
 import 'package:books_app/stack/core/ioc/service_locator.dart';
 
 abstract class DependencyConfig {
@@ -20,6 +21,9 @@ abstract class DependencyConfig {
   static void _registerControllers() {
     locator.registerFactory(
       () => BooksPageController(locator(), locator()),
+    );
+    locator.registerFactory(
+      () => FavoriteBooksPageController(locator(), locator()),
     );
   }
 

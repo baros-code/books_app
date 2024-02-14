@@ -1,3 +1,4 @@
+import '../../../../constants/custom_images.dart';
 import 'package:flutter/material.dart';
 
 import '../../../extensions/build_context_ext.dart';
@@ -5,27 +6,30 @@ import '../../../extensions/build_context_ext.dart';
 class EmptyView extends StatelessWidget {
   const EmptyView({
     super.key,
-    required this.text,
+    this.text,
     this.imagePath,
     this.textStyle,
-    this.imageScale = 2,
+    this.imageWidth,
+    this.imageHeight,
     this.textDistanceFromImage = 16,
     this.onTryAgain,
   });
 
-  final String text;
-  final TextStyle? textStyle;
+  final String? text;
   final String? imagePath;
-  final double imageScale;
+  final TextStyle? textStyle;
+  final double? imageWidth;
+  final double? imageHeight;
   final double? textDistanceFromImage;
   final VoidCallback? onTryAgain;
 
   const EmptyView.builder({
     super.key,
-    required this.text,
-    this.imagePath = 'CommonImages.emptyPositive',
+    this.text,
+    this.imagePath = CustomImages.bookPlaceHolder,
+    this.imageWidth,
+    this.imageHeight,
     this.textStyle,
-    this.imageScale = 2,
     this.textDistanceFromImage,
     this.onTryAgain,
   });
@@ -37,21 +41,25 @@ class EmptyView extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset(
-            imagePath ?? 'CommonImages.emptyNegative',
-            scale: imageScale,
-          ),
-          SizedBox(height: textDistanceFromImage ?? 16),
           Flexible(
-            child: Text(
-              text,
-              style: textStyle ??
-                  context.textTheme.bodySmall!.apply(
-                    color: context.colorScheme.secondary,
-                  ),
-              textAlign: TextAlign.center,
+            child: Image.asset(
+              imagePath ?? CustomImages.bookPlaceHolder,
+              width: imageWidth ?? 200,
+              height: imageHeight ?? 200,
             ),
           ),
+          SizedBox(height: textDistanceFromImage ?? 16),
+          if (text != null)
+            Flexible(
+              child: Text(
+                text!,
+                style: textStyle ??
+                    context.textTheme.bodySmall!.apply(
+                      color: context.colorScheme.secondary,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+            ),
         ],
       ),
     );

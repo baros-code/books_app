@@ -10,6 +10,8 @@ abstract class BooksApi {
     final queryParams = {
       'q': queryText,
       'maxResults': pageSize,
+      // Add this parameter for getting only books and excluding magazines
+      'printType': 'books',
     };
     queryParams.removeWhere((key, value) => value == null);
 

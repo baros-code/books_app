@@ -21,6 +21,8 @@ class BookInfo extends Equatable {
   final int pageCount;
   final BookImageLinks imageLinks;
 
+  String get author => authors.join(', ');
+
   BookInfo.initial()
       : title = '',
         authors = [],

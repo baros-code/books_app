@@ -1,3 +1,4 @@
+import 'package:books_app/features/books/presentation/ui/pages/favorite_books_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,7 +19,7 @@ class RouteManager {
           name: RouteConfig.homeRoute.name,
           pageBuilder: (context, state) {
             // Params indicates whether the page is the favorites page or not
-            return _buildPage(page: BooksPage(params: false), state: state);
+            return _buildPage(page: BooksPage(), state: state);
           },
           routes: [
             GoRoute(
@@ -26,7 +27,7 @@ class RouteManager {
               path: RouteConfig.favoritesRoute.path,
               name: RouteConfig.favoritesRoute.name,
               pageBuilder: (context, state) {
-                return _buildPage(page: BooksPage(params: true), state: state);
+                return _buildPage(page: FavoriteBooksPage(), state: state);
               },
             ),
           ]),

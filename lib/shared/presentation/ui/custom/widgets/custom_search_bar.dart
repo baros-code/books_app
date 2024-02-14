@@ -1,82 +1,107 @@
 import 'package:flutter/material.dart';
 
-import '../../../extensions/build_context_ext.dart';
-
 class CustomSearchBar extends StatefulWidget {
   const CustomSearchBar({
     super.key,
-    this.height,
     this.hintText,
-    this.onTextChanged,
-    this.onSubmitted,
-    this.color,
-    this.iconColor,
-    this.enableKeyboardFirst = false,
+    this.hintStyle,
+    this.textStyle,
+    this.leading,
+    this.backgroundColor,
+    this.activeBorderColor,
+    this.inActiveBorderColor,
+    this.buttonColor,
+    this.buttonText,
+    this.submitWithEnterEnabled = true,
+    required this.onSubmitted,
   });
 
-  final double? height;
   final String? hintText;
-  final Color? color;
-  final Color? iconColor;
-  final bool enableKeyboardFirst;
-  final void Function(String)? onTextChanged;
-  final void Function(String)? onSubmitted;
+  final TextStyle? hintStyle;
+  final TextStyle? textStyle;
+  final Widget? leading;
+  final Color? backgroundColor;
+  final Color? activeBorderColor;
+  final Color? inActiveBorderColor;
+  final Color? buttonColor;
+  final String? buttonText;
+  final bool submitWithEnterEnabled;
+  final void Function(String) onSubmitted;
 
   @override
   State<CustomSearchBar> createState() => _CustomSearchBarState();
 }
 
 class _CustomSearchBarState extends State<CustomSearchBar> {
-  final _controller = TextEditingController();
+  String _searchText = '';
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.height ?? 44,
-      child: TextField(
-        autofocus: widget.enableKeyboardFirst,
-        controller: _controller,
-        onChanged: widget.onTextChanged,
-        onSubmitted: widget.onSubmitted,
-        onEditingComplete: () {
-          widget.onSubmitted?.call(_controller.text);
-          final currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-        },
-        style: context.textTheme.bodySmall,
-        decoration: InputDecoration(
-          hintText: widget.hintText,
-          fillColor: widget.color ?? context.colorScheme.secondary,
-          contentPadding: const EdgeInsets.only(right: 8),
-          prefixIcon: Transform.translate(
-            offset: const Offset(4, 0),
-            child: Icon(Icons.search, color: widget.iconColor),
+    const transparentColor = MaterialStatePropertyAll(Colors.transparent);
+    return Row(
+      children: [
+        Expanded(
+          child: SearchBar(
+            constraints: const BoxConstraints(
+              minHeight: 48,
+            ),
+            padding: const MaterialStatePropertyAll(
+              EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            ),
+            hintText: widget.hintText,
+            textStyle: MaterialStatePropertyAll(
+              widget.textStyle ?? const TextStyle(color: Colors.white),
+            ),
+            side: MaterialStatePropertyAll(BorderSide(
+              width: _searchText.isEmpty ? 1 : 2,
+              color: _searchText.isEmpty
+                  ? (widget.inActiveBorderColor ?? Colors.white)
+                  : (widget.activeBorderColor ?? const Color(0xFF4893EB)),
+            )),
+            shape: MaterialStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            hintStyle: MaterialStatePropertyAll(
+              widget.hintStyle ?? const TextStyle(color: Colors.white),
+            ),
+            leading: widget.leading,
+            backgroundColor: MaterialStatePropertyAll(
+              widget.backgroundColor ?? Colors.transparent,
+            ),
+            shadowColor: transparentColor,
+            surfaceTintColor: transparentColor,
+            overlayColor: transparentColor,
+            onSubmitted: (value) => widget.submitWithEnterEnabled
+                ? widget.onSubmitted(value)
+                : null,
+            onChanged: (value) {
+              setState(() {
+                _searchText = value;
+              });
+            },
           ),
-          prefixIconConstraints: const BoxConstraints.expand(width: 40),
-          suffixIcon: _controller.text.isNotEmpty
-              ? IconButton(
-                  icon: const Icon(Icons.close),
-                  splashRadius: 20,
-                  onPressed: () {
-                    _controller.clear();
-                    widget.onTextChanged?.call(_controller.text);
-                  },
-                )
-              : null,
-          filled: true,
         ),
-        onTapOutside: (event) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        },
-      ),
+        const SizedBox(width: 8),
+        ElevatedButton(
+          onPressed: () => widget.onSubmitted(_searchText),
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(0, 20),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+            backgroundColor: widget.buttonColor ?? const Color(0xFF4893EB),
+          ),
+          child: Text(
+            widget.buttonText ?? 'Search',
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }

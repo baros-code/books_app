@@ -1,13 +1,15 @@
-import '../../domain/entities/book.dart';
+import '../ui/models/book_ui_model.dart';
 
 abstract class BooksState {}
 
 class BooksInitial extends BooksState {}
 
-class BooksFetchSucceeded extends BooksState {
-  BooksFetchSucceeded(this.books);
+class BooksLoading extends BooksState {}
 
-  final List<Book> books;
+class BooksUpdated extends BooksState {
+  BooksUpdated(this.books);
+
+  final List<BookUiModel> books;
 }
 
 class BooksFetchFailed extends BooksState {}
