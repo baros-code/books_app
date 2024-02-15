@@ -54,11 +54,12 @@ class _Body extends SubView<BooksPageController> {
           ),
           const SizedBox(height: 8),
           BlocBuilder<BooksCubit, BooksState>(
-              buildWhen: (previous, current) =>
-                  current is BooksUpdated || current is BooksLoading,
-              builder: (context, state) {
-                return _buildViews(state, controller);
-              })
+            buildWhen: (previous, current) =>
+                current is BooksUpdated || current is BooksLoading,
+            builder: (context, state) {
+              return _buildViews(state, controller);
+            },
+          ),
         ],
       ),
     );
@@ -68,9 +69,10 @@ class _Body extends SubView<BooksPageController> {
     final books = state is BooksUpdated ? state.books : controller.books;
     if (books.isEmpty && state is BooksLoading) {
       return const Expanded(
-          child: Center(
-        child: CircularProgressIndicator(),
-      ));
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
     }
     if (books.isEmpty && !controller.isInitialLoading) {
       return const Expanded(
@@ -87,16 +89,17 @@ class _Body extends SubView<BooksPageController> {
       );
     }
     return Expanded(
-        child: PaginatableListView(
-      items: _buildListViewItems(controller, books),
-      itemSpacing: 12,
-      pageSize: controller.pageSize,
-      maxItemCount: controller.maxItemCount,
-      errorMessage: 'errorMessage',
-      onPagination: (pageIndex) {
-        return controller.fetchBooks(pageIndex);
-      },
-    ));
+      child: PaginatableListView(
+        items: _buildListViewItems(controller, books),
+        itemSpacing: 12,
+        pageSize: controller.pageSize,
+        maxItemCount: controller.maxItemCount,
+        errorMessage: 'errorMessage',
+        onPagination: (pageIndex) {
+          return controller.fetchBooks(pageIndex);
+        },
+      ),
+    );
   }
 
   List<PaginatableListViewItem> _buildListViewItems(

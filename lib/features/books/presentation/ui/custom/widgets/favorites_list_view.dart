@@ -1,8 +1,8 @@
-import 'book_card.dart';
-import '../../../../../../shared/presentation/ui/custom/widgets/empty_view.dart';
-
-import '../../models/book_ui_model.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../../shared/presentation/ui/custom/widgets/empty_view.dart';
+import '../../models/book_ui_model.dart';
+import 'book_card.dart';
 
 class FavoritesListView extends StatelessWidget {
   const FavoritesListView(
@@ -30,9 +30,11 @@ class FavoritesListView extends StatelessWidget {
                         // onDoubleTap isn't given because
                         // it's already a favorite
                         onLongPress: () => onBookLongPress(book),
-                      ))
+                      ),
+                    )
                   : const SizedBox.shrink();
-            })
+            },
+          )
         : const Center(child: EmptyView.builder());
   }
 }

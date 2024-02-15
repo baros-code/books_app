@@ -1,8 +1,8 @@
-import '../../bloc/books_cubit.dart';
-import '../models/book_ui_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../stack/base/presentation/controller.dart';
+import '../../bloc/books_cubit.dart';
+import '../models/book_ui_model.dart';
 
 class FavoriteBooksPageController extends Controller<Object> {
   FavoriteBooksPageController(

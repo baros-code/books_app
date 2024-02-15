@@ -102,7 +102,7 @@ class _BookCardState extends State<BookCard> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

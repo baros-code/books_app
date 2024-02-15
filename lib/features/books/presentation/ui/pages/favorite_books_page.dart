@@ -1,16 +1,15 @@
-import '../custom/widgets/favorites_list_view.dart';
-
-import '../../bloc/books_cubit.dart';
-import '../../bloc/books_state.dart';
-import '../controllers/favorite_books_page_controller.dart';
-import '../custom/widgets/books_page_title.dart';
-import '../../../../../shared/presentation/ui/custom/widgets/custom_search_bar.dart';
-import '../../../../../shared/presentation/ui/pages/base_page.dart';
-import '../../../../../stack/base/presentation/sub_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../stack/base/presentation/controlled_view.dart';
+import '../../../../../shared/presentation/ui/custom/widgets/custom_search_bar.dart';
+import '../../../../../shared/presentation/ui/pages/base_page.dart';
+import '../../../../../stack/base/presentation/sub_view.dart';
+import '../../bloc/books_cubit.dart';
+import '../../bloc/books_state.dart';
+import '../controllers/favorite_books_page_controller.dart';
+import '../custom/widgets/books_page_title.dart';
+import '../custom/widgets/favorites_list_view.dart';
 
 class FavoriteBooksPage
     extends ControlledView<FavoriteBooksPageController, Object> {
@@ -36,7 +35,9 @@ class FavoriteBooksPage
 class _Body extends SubView<FavoriteBooksPageController> {
   @override
   Widget buildView(
-      BuildContext context, FavoriteBooksPageController controller) {
+    BuildContext context,
+    FavoriteBooksPageController controller,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Column(

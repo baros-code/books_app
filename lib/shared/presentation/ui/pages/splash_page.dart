@@ -24,11 +24,12 @@ class SplashPage extends ControlledView<SplashPageController, Object> {
 
 class _Logo extends SubView<SplashPageController> {
   @override
-  Widget buildView(BuildContext context, controller) {
+  Widget buildView(BuildContext context, SplashPageController controller) {
     return SizedBox(
       height: 200,
       child: RotationTransition(
         turns:
+            // ignore: prefer_int_literals
             Tween(begin: 0.0, end: 1.0).animate(controller.animationController),
         child: Image.asset(CustomImages.bookPlaceHolder),
       ),

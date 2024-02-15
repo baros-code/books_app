@@ -1,5 +1,6 @@
-import 'book.dart';
 import 'package:equatable/equatable.dart';
+
+import 'book.dart';
 
 class BooksResponse extends Equatable {
   const BooksResponse({

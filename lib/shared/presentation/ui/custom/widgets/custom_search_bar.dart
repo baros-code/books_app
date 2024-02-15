@@ -55,12 +55,14 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
             textStyle: MaterialStatePropertyAll(
               widget.textStyle ?? const TextStyle(color: Colors.white),
             ),
-            side: MaterialStatePropertyAll(BorderSide(
-              width: _controller.text.isEmpty ? 1 : 2,
-              color: _controller.text.isEmpty
-                  ? (widget.inActiveBorderColor ?? Colors.white)
-                  : (widget.activeBorderColor ?? const Color(0xFF4893EB)),
-            )),
+            side: MaterialStatePropertyAll(
+              BorderSide(
+                width: _controller.text.isEmpty ? 1 : 2,
+                color: _controller.text.isEmpty
+                    ? (widget.inActiveBorderColor ?? Colors.white)
+                    : (widget.activeBorderColor ?? const Color(0xFF4893EB)),
+              ),
+            ),
             shape: MaterialStatePropertyAll(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -110,7 +112,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
               ),
             ),
           ),
-        ]
+        ],
       ],
     );
   }

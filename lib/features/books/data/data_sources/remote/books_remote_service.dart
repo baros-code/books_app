@@ -16,7 +16,8 @@ class BooksRemoteServiceImpl implements BooksRemoteService {
 
   @override
   Future<Result<BooksResponseModel, Failure>> getBooks(
-      GetBooksParams params) async {
+    GetBooksParams params,
+  ) async {
     return _apiManager.call(
       BooksApi.getBooks(
         queryText: params.queryText,

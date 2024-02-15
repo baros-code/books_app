@@ -22,7 +22,7 @@ class BooksResponseModel {
   factory BooksResponseModel.fromEntity(BooksResponse entity) {
     return BooksResponseModel(
       totalItems: entity.totalItems,
-      items: entity.items.map((e) => BookModel.fromEntity(e)).toList(),
+      items: entity.items.map(BookModel.fromEntity).toList(),
     );
   }
 

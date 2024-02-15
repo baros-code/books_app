@@ -1,9 +1,7 @@
-import '../../../../../stack/common/models/failure.dart';
-
-import '../../models/book_model.dart';
-import '../../../../../stack/common/models/result.dart';
-
 import '../../../../../stack/base/data/local_storage.dart';
+import '../../../../../stack/common/models/failure.dart';
+import '../../../../../stack/common/models/result.dart';
+import '../../models/book_model.dart';
 
 abstract class BooksLocalStorage {
   Future<Result<List<BookModel>, Failure>> getFavorites();

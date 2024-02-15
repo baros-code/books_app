@@ -170,7 +170,7 @@ class _PaginatableListViewState<T extends Object>
 
   void _updateCurrentPageNum() {
     if (widget.items.isNotEmpty && widget.pageSize != 0) {
-      _currentPageNum = (widget.items.length ~/ widget.pageSize);
+      _currentPageNum = widget.items.length ~/ widget.pageSize;
     }
   }
 
