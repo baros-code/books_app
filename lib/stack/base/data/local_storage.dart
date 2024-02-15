@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import '../../common/models/failure.dart';
-import '../../common/models/result.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../common/models/failure.dart';
+import '../../common/models/result.dart';
 import '../../core/ioc/service_locator.dart';
 import '../../core/logging/logger.dart';
 

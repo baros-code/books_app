@@ -29,9 +29,10 @@ class BooksPageController extends Controller<Object> {
   void onStart() {
     super.onStart();
     _booksCubit = context.read<BooksCubit>();
+    _booksCubit.stream.listen(_handleStates);
   }
 
-  void handleStates(BooksState state) {
+  void _handleStates(BooksState state) {
     if (state is AddFavoriteFailed) {
       popupManager.showSnackBar(
         context,

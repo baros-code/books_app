@@ -1,8 +1,8 @@
-import '../../../../../shared/presentation/ui/custom/widgets/empty_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../shared/presentation/ui/custom/widgets/custom_search_bar.dart';
+import '../../../../../shared/presentation/ui/custom/widgets/empty_view.dart';
 import '../../../../../shared/presentation/ui/pages/base_page.dart';
 import '../../../../../stack/base/presentation/controlled_view.dart';
 import '../../../../../stack/base/presentation/sub_view.dart';
@@ -19,25 +19,22 @@ class BooksPage extends ControlledView<BooksPageController, Object> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BooksCubit, BooksState>(
-      listener: (context, state) => controller.handleStates(state),
-      child: BasePage(
-        title: const BooksPageTitle('Favori Kitaplarım'),
-        // TODO(Baran): Add these colors as primary color to the theme
-        // Color(0XFF4893EB),
-        appBarBackgroundColor: const Color(0xFF1C242A),
-        backgroundColor: const Color(0xFF1C242A),
-        // Prevents the book icon to move up when keyboard is opened
-        resizeToAvoidBottomInset: false,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.favorite),
-            color: Colors.white,
-            onPressed: () => controller.goToFavoritesPage(),
-          ),
-        ],
-        body: _Body(),
-      ),
+    return BasePage(
+      title: const BooksPageTitle('Favori Kitaplarım'),
+      // TODO(Baran): Add these colors as primary color to the theme
+      // Color(0XFF4893EB),
+      appBarBackgroundColor: const Color(0xFF1C242A),
+      backgroundColor: const Color(0xFF1C242A),
+      // Prevents the book icon to move up when keyboard is opened
+      resizeToAvoidBottomInset: false,
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.favorite),
+          color: Colors.white,
+          onPressed: () => controller.goToFavoritesPage(),
+        ),
+      ],
+      body: _Body(),
     );
   }
 }

@@ -22,6 +22,8 @@ class BooksCubit extends SafeCubit<BooksState> {
   final List<BookUiModel> booksCache = [];
   final List<BookUiModel> favoriteBooksCache = [];
 
+  // Keep this as 10 otherwise api returns incorrect maxItemCount
+  // and the pagination will not work properly
   final int defaultPageSize = 10;
   bool isInitialLoading = true;
   // Initial value, will be updated after the first fetch
@@ -91,7 +93,7 @@ class BooksCubit extends SafeCubit<BooksState> {
   Future<void> addFavorite(BookUiModel book) async {
     if (_checkIfBookInFavorites(book.id)) return;
     final result = await _addFavorite(params: book.toEntity());
-    if (result.isSuccessful) {
+    if (!result.isSuccessful) {
       _updateCachesWithNewValue(book, isFavorite: true);
       emit(BooksUpdated(booksCache, favoriteBooksCache));
       return;
