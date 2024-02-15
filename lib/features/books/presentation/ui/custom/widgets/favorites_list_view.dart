@@ -4,16 +4,14 @@ import 'package:books_app/shared/presentation/ui/custom/widgets/empty_view.dart'
 import '../../models/book_ui_model.dart';
 import 'package:flutter/material.dart';
 
-class BooksListView extends StatelessWidget {
-  const BooksListView(
+class FavoritesListView extends StatelessWidget {
+  const FavoritesListView(
     this.books, {
     super.key,
-    required this.onBookDoubleTap,
     required this.onBookLongPress,
   });
 
   final List<BookUiModel> books;
-  final void Function(BookUiModel) onBookDoubleTap;
   final void Function(BookUiModel) onBookLongPress;
 
   @override
@@ -29,7 +27,8 @@ class BooksListView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: BookCard(
                         book,
-                        onDoubleTap: () => onBookDoubleTap(book),
+                        // onDoubleTap isn't given because
+                        // it's already a favorite
                         onLongPress: () => onBookLongPress(book),
                       ))
                   : const SizedBox.shrink();

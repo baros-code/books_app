@@ -21,6 +21,7 @@ class BooksRemoteServiceImpl implements BooksRemoteService {
       BooksApi.getBooks(
         queryText: params.queryText,
         pageSize: params.pageSize,
+        pageIndex: params.startIndex,
       ),
     );
   }

@@ -20,8 +20,10 @@ class GetBooksParams {
   GetBooksParams({
     required this.queryText,
     required this.pageSize,
+    required this.startIndex,
   });
 
   final String queryText;
   final int pageSize;
+  final int startIndex;
 }

@@ -1,7 +1,8 @@
+import 'package:books_app/features/books/presentation/ui/custom/widgets/favorites_list_view.dart';
+
 import '../../bloc/books_cubit.dart';
 import '../../bloc/books_state.dart';
 import '../controllers/favorite_books_page_controller.dart';
-import '../custom/widgets/books_list_view.dart';
 import '../custom/widgets/books_page_title.dart';
 import '../../../../../shared/presentation/ui/custom/widgets/custom_search_bar.dart';
 import '../../../../../shared/presentation/ui/pages/base_page.dart';
@@ -47,32 +48,22 @@ class _Body extends SubView<FavoriteBooksPageController> {
             onChange: (value) => controller.searchBooks(value),
           ),
           const SizedBox(height: 8),
-          _ListView(),
+          BlocBuilder<BooksCubit, BooksState>(
+            buildWhen: (previous, current) => current is BooksUpdated,
+            builder: (context, state) {
+              final books = state is BooksUpdated
+                  ? state.favoriteBooks
+                  : controller.books;
+              return Expanded(
+                child: FavoritesListView(
+                  books,
+                  onBookLongPress: controller.removeFavorite,
+                ),
+              );
+            },
+          ),
         ],
       ),
-    );
-  }
-}
-
-class _ListView extends SubView<FavoriteBooksPageController> {
-  _ListView();
-
-  @override
-  Widget buildView(
-      BuildContext context, FavoriteBooksPageController controller) {
-    return BlocBuilder<BooksCubit, BooksState>(
-      buildWhen: (previous, current) => current is BooksUpdated,
-      builder: (context, state) {
-        final books =
-            state is BooksUpdated ? state.favoriteBooks : controller.books;
-        return Expanded(
-          child: BooksListView(
-            books,
-            onBookDoubleTap: controller.addFavorite,
-            onBookLongPress: controller.removeFavorite,
-          ),
-        );
-      },
     );
   }
 }

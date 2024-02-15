@@ -1,4 +1,3 @@
-import '../../extensions/widget_ext.dart';
 import 'package:flutter/material.dart';
 
 class BasePage extends StatelessWidget {
@@ -6,10 +5,10 @@ class BasePage extends StatelessWidget {
     super.key,
     this.title,
     this.body,
-    this.bottom,
     this.floatingActionButton,
     this.backgroundColor,
     this.appBarBackgroundColor,
+    this.resizeToAvoidBottomInset = true,
     this.appBarDisabled = false,
     this.backButtonEnabled = false,
     this.closeButtonEnabled = false,
@@ -26,10 +25,10 @@ class BasePage extends StatelessWidget {
 
   final Widget? title;
   final Widget? body;
-  final Widget? bottom;
   final Widget? floatingActionButton;
   final Color? backgroundColor;
   final Color? appBarBackgroundColor;
+  final bool resizeToAvoidBottomInset;
   final bool appBarDisabled;
   final bool backButtonEnabled;
   final bool closeButtonEnabled;
@@ -48,12 +47,8 @@ class BasePage extends StatelessWidget {
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildBody(),
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       floatingActionButton: floatingActionButton,
-    ).backPressHandled(
-      onBackPress: () async {
-        onDismissed?.call();
-        return true;
-      },
     );
   }
 
@@ -110,8 +105,6 @@ class BasePage extends StatelessWidget {
                 child: body!,
               ),
             ),
-          if (body == null) const Spacer(),
-          _Bottom(bottom),
         ],
       ),
     );
@@ -209,33 +202,6 @@ class _PageBody extends StatelessWidget {
         color: backgroundColor,
         padding: padding ?? EdgeInsets.zero,
         child: child,
-      ),
-    );
-  }
-}
-
-class _Bottom extends StatelessWidget {
-  const _Bottom(this.bottom);
-
-  final Widget? bottom;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedSize(
-      duration: const Duration(milliseconds: 100),
-      child: Container(
-        height: bottom != null ? null : 0,
-        color: Theme.of(context).colorScheme.background,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 24,
-        ),
-        child: bottom,
-      ).elevated(
-        isTop: true,
-        borderRadius: 0,
-        blurRadius: 8,
-        level: 2,
       ),
     );
   }

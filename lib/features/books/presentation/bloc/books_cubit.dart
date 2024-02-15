@@ -22,13 +22,20 @@ class BooksCubit extends SafeCubit<BooksState> {
   final List<BookUiModel> booksCache = [];
   final List<BookUiModel> favoriteBooksCache = [];
 
-  int defaultPageSize = 10;
+  final int defaultPageSize = 10;
+  bool isInitialLoading = true;
+  // Initial value, will be updated after the first fetch
+  int maxItemCount = 1;
 
-  Future<void> fetchBooks(String queryText) async {
+  Future<bool> fetchBooks(String queryText, {int pageIndex = 0}) async {
+    if (pageIndex == 0) {
+      booksCache.clear();
+    }
     emit(BooksLoading());
     final result = await _getBooks(
       params: GetBooksParams(
         queryText: queryText,
+        startIndex: pageIndex * defaultPageSize,
         pageSize: defaultPageSize,
       ),
     );
@@ -39,12 +46,14 @@ class BooksCubit extends SafeCubit<BooksState> {
               ..isFavorite = _checkIfBookInFavorites(e.id),
           )
           .toList();
-      booksCache.clear();
       booksCache.addAll(uiModels);
+      isInitialLoading = false;
+      if (pageIndex == 0) maxItemCount = result.value!.totalItems;
       emit(BooksUpdated(booksCache, favoriteBooksCache));
-      return;
+      return true;
     }
     emit(BooksFetchFailed());
+    return false;
   }
 
   Future<void> fetchFavorites() async {
@@ -55,10 +64,8 @@ class BooksCubit extends SafeCubit<BooksState> {
           .toList();
       favoriteBooksCache.clear();
       favoriteBooksCache.addAll(uiModels);
-      emit(BooksUpdated(booksCache, favoriteBooksCache));
       return;
     }
-    emit(FavoritesFetchFailed());
   }
 
   void searchFavoriteBooks(String searchText) {

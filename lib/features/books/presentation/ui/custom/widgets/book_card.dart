@@ -10,12 +10,12 @@ class BookCard extends StatefulWidget {
   const BookCard(
     this.book, {
     super.key,
-    required this.onDoubleTap,
+    this.onDoubleTap,
     required this.onLongPress,
   });
 
   final BookUiModel book;
-  final void Function() onDoubleTap;
+  final void Function()? onDoubleTap;
   final void Function() onLongPress;
 
   @override
@@ -36,7 +36,7 @@ class _BookCardState extends State<BookCard> {
       onDoubleTap: () {
         if (isFavorite) return;
         setState(() {
-          widget.onDoubleTap();
+          widget.onDoubleTap?.call();
         });
       },
       onLongPress: () {

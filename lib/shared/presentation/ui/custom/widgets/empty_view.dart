@@ -11,7 +11,7 @@ class EmptyView extends StatelessWidget {
     this.textStyle,
     this.imageWidth,
     this.imageHeight,
-    this.textDistanceFromImage = 16,
+    this.textDistanceFromImage = 4,
     this.onTryAgain,
   });
 
@@ -48,7 +48,7 @@ class EmptyView extends StatelessWidget {
               height: imageHeight ?? 200,
             ),
           ),
-          SizedBox(height: textDistanceFromImage ?? 16),
+          SizedBox(height: textDistanceFromImage),
           if (text != null)
             Flexible(
               child: Text(

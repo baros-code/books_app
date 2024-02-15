@@ -24,10 +24,6 @@ class FavoriteBooksPageController extends Controller<Object> {
     _booksCubit.searchFavoriteBooks(searchText);
   }
 
-  void addFavorite(BookUiModel book) {
-    _booksCubit.addFavorite(book);
-  }
-
   void removeFavorite(BookUiModel book) {
     _booksCubit.removeFavorite(book);
   }
