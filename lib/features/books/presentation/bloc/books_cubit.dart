@@ -85,8 +85,7 @@ class BooksCubit extends SafeCubit<BooksState> {
     if (_checkIfBookInFavorites(book.id)) return;
     final result = await _addFavorite(params: book.toEntity());
     if (result.isSuccessful) {
-      book.isFavorite = true;
-      favoriteBooksCache.add(book);
+      _updateCachesWithNewValue(book, isFavorite: true);
       emit(BooksUpdated(booksCache, favoriteBooksCache));
       return;
     }
@@ -96,8 +95,7 @@ class BooksCubit extends SafeCubit<BooksState> {
   Future<void> removeFavorite(BookUiModel book) async {
     final result = await _removeFavorite(params: book.id);
     if (result.isSuccessful) {
-      book.isFavorite = false;
-      favoriteBooksCache.remove(book);
+      _updateCachesWithNewValue(book, isFavorite: false);
       emit(BooksUpdated(booksCache, favoriteBooksCache));
       return;
     }
@@ -113,6 +111,15 @@ class BooksCubit extends SafeCubit<BooksState> {
   // Helpers
   bool _checkIfBookInFavorites(String id) {
     return favoriteBooksCache.any((e) => e.id == id);
+  }
+
+  void _updateCachesWithNewValue(BookUiModel book, {bool isFavorite = true}) {
+    for (final item in booksCache) {
+      if (item.id == book.id) {
+        item.isFavorite = isFavorite;
+      }
+    }
+    isFavorite ? favoriteBooksCache.add(book) : favoriteBooksCache.remove(book);
   }
   // - Helpers
 }

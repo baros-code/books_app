@@ -23,21 +23,9 @@ class BookCard extends StatefulWidget {
 }
 
 class _BookCardState extends State<BookCard> {
-  late bool _isFavorite;
-  @override
-  void initState() {
-    super.initState();
-    _isFavorite = widget.book.isFavorite;
-  }
-
-  @override
-  void didUpdateWidget(covariant BookCard oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _isFavorite = widget.book.isFavorite;
-  }
-
   @override
   Widget build(BuildContext context) {
+    final isFavorite = widget.book.isFavorite;
     final title = widget.book.bookInfo.title;
     final author = widget.book.bookInfo.author;
     final publisher = widget.book.bookInfo.publisher;
@@ -46,13 +34,13 @@ class _BookCardState extends State<BookCard> {
     final imageLinks = widget.book.bookInfo.imageLinks;
     return InkWell(
       onDoubleTap: () {
-        if (_isFavorite) return;
+        if (isFavorite) return;
         setState(() {
           widget.onDoubleTap();
         });
       },
       onLongPress: () {
-        if (!_isFavorite) return;
+        if (!isFavorite) return;
         setState(() {
           widget.onLongPress();
         });
@@ -60,7 +48,7 @@ class _BookCardState extends State<BookCard> {
       child: CustomCard(
         height: 125,
         padding: const EdgeInsets.all(8),
-        backgroundColor: _isFavorite ? Colors.blue : Colors.transparent,
+        backgroundColor: isFavorite ? Colors.blue : Colors.transparent,
         enableShadows: false,
         showBorder: true,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
