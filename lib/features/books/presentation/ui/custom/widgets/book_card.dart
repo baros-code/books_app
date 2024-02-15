@@ -1,8 +1,7 @@
-import 'package:books_app/shared/constants/custom_images.dart';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../shared/constants/custom_images.dart';
 import '../../../../../../shared/presentation/ui/custom/widgets/custom_card.dart';
 import '../../models/book_ui_model.dart';
 

@@ -1,4 +1,4 @@
-import 'package:books_app/stack/common/models/failure.dart';
+import '../../../../../stack/common/models/failure.dart';
 
 import '../../models/book_model.dart';
 import '../../../../../stack/common/models/result.dart';

@@ -1,6 +1,6 @@
-import '../../../../constants/custom_images.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../constants/custom_images.dart';
 import '../../../extensions/build_context_ext.dart';
 
 class EmptyView extends StatelessWidget {

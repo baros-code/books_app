@@ -1,4 +1,4 @@
-import 'package:books_app/features/books/domain/entities/book.dart';
+import '../entities/book.dart';
 
 import '../../../../stack/base/domain/use_case.dart';
 import '../../../../stack/common/models/result.dart';

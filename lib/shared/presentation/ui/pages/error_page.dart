@@ -1,5 +1,5 @@
-import 'package:books_app/configs/router/route_manager.dart';
-import 'package:books_app/shared/presentation/ui/pages/base_page.dart';
+import '../../../../configs/router/route_manager.dart';
+import 'base_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

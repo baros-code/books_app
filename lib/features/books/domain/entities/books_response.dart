@@ -1,4 +1,4 @@
-import 'package:books_app/features/books/domain/entities/book.dart';
+import 'book.dart';
 import 'package:equatable/equatable.dart';
 
 class BooksResponse extends Equatable {

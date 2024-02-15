@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
-
 import 'package:intl/intl.dart';
 
 /// A tool to log messages for different purposes such as debug, crash etc.

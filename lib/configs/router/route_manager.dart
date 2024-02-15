@@ -1,10 +1,10 @@
-import '../../features/books/presentation/ui/pages/favorite_books_page.dart';
-import '../../shared/presentation/ui/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/books/presentation/ui/pages/books_page.dart';
+import '../../features/books/presentation/ui/pages/favorite_books_page.dart';
 import '../../shared/presentation/ui/pages/error_page.dart';
+import '../../shared/presentation/ui/pages/splash_page.dart';
 
 class RouteManager {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();

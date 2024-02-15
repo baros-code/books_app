@@ -1,13 +1,12 @@
-import 'package:books_app/features/books/data/data_sources/local/books_local_storage.dart';
-import 'package:books_app/features/books/data/models/book_model.dart';
-import 'package:books_app/features/books/domain/entities/book.dart';
-
 import '../../../../stack/common/models/failure.dart';
 import '../../../../stack/common/models/result.dart';
+import '../../domain/entities/book.dart';
 import '../../domain/entities/books_response.dart';
 import '../../domain/repositories/books_repository.dart';
 import '../../domain/use_cases/get_books.dart';
+import '../data_sources/local/books_local_storage.dart';
 import '../data_sources/remote/books_remote_service.dart';
+import '../models/book_model.dart';
 
 class BooksRepositoryImpl implements BooksRepository {
   BooksRepositoryImpl(

@@ -1,4 +1,4 @@
-import 'package:books_app/features/books/data/models/book_model.dart';
+import 'book_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../domain/entities/books_response.dart';

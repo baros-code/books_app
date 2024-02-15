@@ -1,4 +1,4 @@
-import 'package:books_app/features/books/presentation/ui/custom/widgets/favorites_list_view.dart';
+import '../custom/widgets/favorites_list_view.dart';
 
 import '../../bloc/books_cubit.dart';
 import '../../bloc/books_state.dart';

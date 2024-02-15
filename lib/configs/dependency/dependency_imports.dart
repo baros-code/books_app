@@ -1,5 +1,5 @@
-import 'package:books_app/features/books/data/models/book_model.dart';
-import 'package:books_app/shared/presentation/ui/controllers/splash_page_controller.dart';
+import '../../features/books/data/models/book_model.dart';
+import '../../shared/presentation/ui/controllers/splash_page_controller.dart';
 
 import '../../features/books/data/data_sources/local/books_local_storage.dart';
 import '../../features/books/data/data_sources/remote/books_remote_service.dart';

@@ -1,5 +1,5 @@
-import 'package:books_app/stack/core/ioc/service_locator.dart';
-import 'package:books_app/stack/core/popup/popup_manager.dart';
+import '../../../../../../stack/core/ioc/service_locator.dart';
+import '../../../../../../stack/core/popup/popup_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../shared/presentation/ui/custom/widgets/empty_view.dart';

@@ -1,5 +1,5 @@
-import 'package:books_app/features/books/presentation/ui/custom/widgets/book_card.dart';
-import 'package:books_app/shared/presentation/ui/custom/widgets/empty_view.dart';
+import 'book_card.dart';
+import '../../../../../../shared/presentation/ui/custom/widgets/empty_view.dart';
 
 import '../../models/book_ui_model.dart';
 import 'package:flutter/material.dart';
