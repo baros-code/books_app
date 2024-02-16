@@ -9,11 +9,11 @@ class CustomCard extends StatelessWidget {
     this.width,
     this.height,
     this.constraints,
-    this.enableShadows = true,
     this.backgroundColor,
     this.borderRadius,
     this.borderColor,
     this.showBorder = false,
+    this.borderWidth = 1,
     this.shape,
     this.padding = const EdgeInsets.all(20),
     this.child,
@@ -22,11 +22,11 @@ class CustomCard extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxConstraints? constraints;
-  final bool enableShadows;
   final Color? backgroundColor;
   final BorderRadius? borderRadius;
   final Color? borderColor;
   final bool showBorder;
+  final double borderWidth;
   final ShapeBorder? shape;
   final EdgeInsets padding;
   final Widget? child;
@@ -42,6 +42,7 @@ class CustomCard extends StatelessWidget {
       child: child,
     ).bordered(
       isEnabled: showBorder,
+      width: borderWidth,
       borderColor: borderColor ?? context.colorScheme.primary,
       radius: borderRadius ?? BorderRadius.circular(16),
     );
@@ -52,33 +53,12 @@ class CustomCard extends StatelessWidget {
     return shape != null
         ? ShapeDecoration(
             shape: shape!,
-            color: backgroundColor ?? context.colorScheme.primaryContainer,
-            shadows: _buildShadows(context),
+            color: backgroundColor ?? context.colorScheme.background,
           )
         : BoxDecoration(
             borderRadius: borderRadius ?? BorderRadius.circular(16),
-            color: backgroundColor ?? context.colorScheme.primaryContainer,
-            boxShadow: _buildShadows(context),
+            color: backgroundColor ?? context.colorScheme.background,
           );
-  }
-
-  List<BoxShadow>? _buildShadows(BuildContext context) {
-    return enableShadows
-        ? [
-            BoxShadow(
-              color: context.colorScheme.shadow.withOpacity(0.06),
-              spreadRadius: 0,
-              blurRadius: 2,
-              offset: const Offset(0, 1),
-            ),
-            BoxShadow(
-              color: context.colorScheme.shadow.withOpacity(0.1),
-              spreadRadius: 0,
-              blurRadius: 8,
-              offset: const Offset(0, 1),
-            ),
-          ]
-        : null;
   }
   // - Helpers
 }

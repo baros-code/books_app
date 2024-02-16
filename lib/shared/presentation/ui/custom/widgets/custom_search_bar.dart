@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../extensions/build_context_ext.dart';
+
 class CustomSearchBar extends StatefulWidget {
   const CustomSearchBar({
     super.key,
@@ -53,14 +55,16 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
             ),
             hintText: widget.hintText,
             textStyle: MaterialStatePropertyAll(
-              widget.textStyle ?? const TextStyle(color: Colors.white),
+              widget.textStyle ??
+                  context.textTheme.titleLarge!
+                      .copyWith(fontWeight: FontWeight.normal),
             ),
             side: MaterialStatePropertyAll(
               BorderSide(
                 width: _controller.text.isEmpty ? 1 : 2,
                 color: _controller.text.isEmpty
                     ? (widget.inActiveBorderColor ?? Colors.white)
-                    : (widget.activeBorderColor ?? const Color(0xFF4893EB)),
+                    : (widget.activeBorderColor ?? context.colorScheme.primary),
               ),
             ),
             shape: MaterialStatePropertyAll(
@@ -68,9 +72,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
-            hintStyle: MaterialStatePropertyAll(
-              widget.hintStyle ?? const TextStyle(color: Colors.white),
-            ),
+            hintStyle: MaterialStatePropertyAll(widget.hintStyle),
             leading: widget.leading,
             trailing: _controller.text.isNotEmpty
                 ? [
@@ -78,7 +80,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                   ]
                 : null,
             backgroundColor: MaterialStatePropertyAll(
-              widget.backgroundColor ?? Colors.transparent,
+              widget.backgroundColor ?? context.colorScheme.background,
             ),
             shadowColor: transparentColor,
             surfaceTintColor: transparentColor,
@@ -103,13 +105,11 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
-              backgroundColor: widget.buttonColor ?? const Color(0xFF4893EB),
+              backgroundColor:
+                  widget.buttonColor ?? context.colorScheme.primary,
             ),
             child: Text(
               widget.buttonText ?? 'Search',
-              style: const TextStyle(
-                color: Colors.white,
-              ),
             ),
           ),
         ],
@@ -126,10 +126,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   // Helpers
   GestureDetector _buildClearButton() {
     return GestureDetector(
-      child: const Icon(
-        Icons.close,
-        color: Colors.white,
-      ),
+      child: const Icon(Icons.close),
       onTap: () {
         setState(() {
           _controller.clear();

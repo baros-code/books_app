@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../configs/router/route_manager.dart';
+import '../../../../../configs/route_config.dart';
 import '../../../../../stack/base/presentation/controller.dart';
 import '../../bloc/books_cubit.dart';
 import '../../bloc/books_state.dart';
@@ -36,13 +36,11 @@ class BooksPageController extends Controller<Object> {
     if (state is AddFavoriteFailed) {
       popupManager.showSnackBar(
         context,
-        backgroundColor: const Color(0xFF4893EB),
         const Text('Favorilere eklenirken bir hata oluştu.'),
       );
     } else if (state is RemoveFavoriteFailed) {
       popupManager.showSnackBar(
         context,
-        backgroundColor: const Color(0xFF4893EB),
         const Text('Favorilerden kaldırılırken bir hata oluştu.'),
       );
     }
@@ -53,7 +51,7 @@ class BooksPageController extends Controller<Object> {
   }
 
   void goToFavoritesPage() {
-    context.goNamed(RouteConfig.favoritesRoute.name);
+    context.goNamed(AppRoutes.favoritesRoute.name);
   }
 
   void searchBooks(String searchText) {
@@ -61,7 +59,6 @@ class BooksPageController extends Controller<Object> {
     if (searchText.length >= _searchCharacterLimit) {
       popupManager.showSnackBar(
         context,
-        backgroundColor: const Color(0xFF4893EB),
         Text('Arama metni $_searchCharacterLimit karakterden fazla olamaz.'),
       );
       return;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../constants/custom_images.dart';
+import '../../../../../configs/asset_config.dart';
 import '../../../extensions/build_context_ext.dart';
 
 class EmptyView extends StatelessWidget {
@@ -26,7 +26,7 @@ class EmptyView extends StatelessWidget {
   const EmptyView.builder({
     super.key,
     this.text,
-    this.imagePath = CustomImages.bookPlaceHolder,
+    this.imagePath = AssetConfig.bookPlaceHolder,
     this.imageWidth,
     this.imageHeight,
     this.textStyle,
@@ -43,7 +43,7 @@ class EmptyView extends StatelessWidget {
         children: [
           Flexible(
             child: Image.asset(
-              imagePath ?? CustomImages.bookPlaceHolder,
+              imagePath ?? AssetConfig.bookPlaceHolder,
               width: imageWidth ?? 200,
               height: imageHeight ?? 200,
             ),
@@ -53,10 +53,7 @@ class EmptyView extends StatelessWidget {
             Flexible(
               child: Text(
                 text!,
-                style: textStyle ??
-                    context.textTheme.bodySmall!.apply(
-                      color: context.colorScheme.secondary,
-                    ),
+                style: textStyle ?? context.textTheme.bodySmall!,
                 textAlign: TextAlign.center,
               ),
             ),

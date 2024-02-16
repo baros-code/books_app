@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../shared/constants/custom_images.dart';
+import '../../../../../../configs/asset_config.dart';
+import '../../../../../../shared/presentation/extensions/build_context_ext.dart';
 import '../../../../../../shared/presentation/ui/custom/widgets/custom_card.dart';
 import '../../models/book_ui_model.dart';
 
@@ -47,18 +48,18 @@ class _BookCardState extends State<BookCard> {
       child: CustomCard(
         height: 125,
         padding: const EdgeInsets.all(8),
-        backgroundColor: isFavorite ? Colors.blue : Colors.transparent,
-        enableShadows: false,
+        backgroundColor: context.colorScheme.background,
         showBorder: true,
+        borderWidth: isFavorite ? 4 : 1,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
-        borderColor: const Color(0xFF4893EB),
+        borderColor: context.colorScheme.primary,
         child: Row(
           children: [
             CachedNetworkImage(
               imageUrl: imageLinks.smallThumbnail,
               placeholder: (context, url) => const CircularProgressIndicator(),
               errorWidget: (context, url, error) =>
-                  Image.asset(CustomImages.bookPlaceHolder),
+                  Image.asset(AssetConfig.bookPlaceHolder),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -68,14 +69,10 @@ class _BookCardState extends State<BookCard> {
                   _CardContent(
                     title,
                     textStyle: const TextStyle(
-                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Divider(
-                    thickness: 1,
-                    color: Colors.white,
-                  ),
+                  const Divider(thickness: 1),
                   _CardContent(
                     'Author: $author',
                     isVisible: author.isNotEmpty,
@@ -128,7 +125,7 @@ class _CardContent extends StatelessWidget {
             content,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: textStyle ?? const TextStyle(color: Colors.white),
+            style: textStyle,
           )
         : const SizedBox.shrink();
   }

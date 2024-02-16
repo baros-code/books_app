@@ -4,7 +4,6 @@ import '../logging/logger.dart';
 import '../network/api_manager.dart';
 import '../network/connectivity_manager.dart';
 import '../popup/popup_manager.dart';
-import '../theme/theme_manager.dart';
 
 /// Global service locator instance.
 /// A centric layer such as Domain must not access this object.
@@ -107,10 +106,6 @@ class ServiceLocator {
     // PopupManager
     _locator.registerLazySingleton<PopupManager>(
       PopupManagerImpl.new,
-    );
-    // ThemeManager
-    _locator.registerLazySingleton<ThemeManager>(
-      ThemeManagerImpl.new,
     );
   }
   // - Helpers

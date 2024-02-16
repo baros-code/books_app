@@ -21,16 +21,11 @@ class BooksPage extends ControlledView<BooksPageController, Object> {
   Widget build(BuildContext context) {
     return BasePage(
       title: const BooksPageTitle('Favori Kitaplarım'),
-      // TODO(Baran): Add these colors as primary color to the theme
-      // Color(0XFF4893EB),
-      appBarBackgroundColor: const Color(0xFF1C242A),
-      backgroundColor: const Color(0xFF1C242A),
       // Prevents the book icon to move up when keyboard is opened
       resizeToAvoidBottomInset: false,
       actions: [
         IconButton(
-          icon: const Icon(Icons.favorite),
-          color: Colors.white,
+          icon: const Icon(Icons.favorite, size: 30),
           onPressed: () => controller.goToFavoritesPage(),
         ),
       ],
@@ -47,9 +42,7 @@ class _Body extends SubView<BooksPageController> {
       child: Column(
         children: [
           CustomSearchBar(
-            hintStyle: const TextStyle(color: Colors.white),
-            backgroundColor: Colors.transparent,
-            leading: const Icon(Icons.search, color: Colors.white),
+            leading: const Icon(Icons.search, size: 30),
             onSubmitted: (value) => controller.searchBooks(value),
           ),
           const SizedBox(height: 8),

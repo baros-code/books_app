@@ -7,7 +7,6 @@ import '../configs/dependency/dependency_imports.dart';
 import '../stack/core/ioc/service_locator.dart';
 import '../stack/core/logging/logger.dart';
 import '../stack/core/network/api_manager.dart';
-import '../stack/core/theme/theme_manager.dart';
 import 'main_app.dart';
 
 void main() {
@@ -19,9 +18,6 @@ void main() {
         MainApp(
           logger: locator<Logger>(),
           apiManager: locator<ApiManager>(),
-          themeMode: await locator<ThemeManager>().getThemeMode(),
-          lightTheme: ThemeData.light(),
-          darkTheme: ThemeData.dark(),
         ),
       );
     },

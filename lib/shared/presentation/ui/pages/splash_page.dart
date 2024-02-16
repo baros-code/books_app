@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../../../../stack/base/presentation/controlled_view.dart';
+import '../../../../configs/asset_config.dart';
 import '../../../../stack/base/presentation/sub_view.dart';
-import '../../../constants/custom_images.dart';
 import '../controllers/splash_page_controller.dart';
 
 class SplashPage extends ControlledView<SplashPageController, Object> {
@@ -14,7 +14,6 @@ class SplashPage extends ControlledView<SplashPageController, Object> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1C242A),
       body: SafeArea(
         child: Center(child: _Logo()),
       ),
@@ -31,7 +30,7 @@ class _Logo extends SubView<SplashPageController> {
         turns:
             // ignore: prefer_int_literals
             Tween(begin: 0.0, end: 1.0).animate(controller.animationController),
-        child: Image.asset(CustomImages.bookPlaceHolder),
+        child: Image.asset(AssetConfig.bookPlaceHolder),
       ),
     );
   }

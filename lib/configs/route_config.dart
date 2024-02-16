@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/books/presentation/ui/pages/books_page.dart';
-import '../../features/books/presentation/ui/pages/favorite_books_page.dart';
-import '../../shared/presentation/ui/pages/error_page.dart';
-import '../../shared/presentation/ui/pages/splash_page.dart';
+import '../features/books/presentation/ui/pages/books_page.dart';
+import '../features/books/presentation/ui/pages/favorite_books_page.dart';
+import '../shared/presentation/ui/pages/error_page.dart';
+import '../shared/presentation/ui/pages/splash_page.dart';
 
-class RouteManager {
+class RouteConfig {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
   static final GoRouter _router = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: RouteConfig.splashRoute.path,
+    initialLocation: AppRoutes.splashRoute.path,
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
-        path: RouteConfig.splashRoute.path,
-        name: RouteConfig.splashRoute.name,
+        path: AppRoutes.splashRoute.path,
+        name: AppRoutes.splashRoute.name,
         pageBuilder: (context, state) {
           return _buildPage(page: SplashPage(), state: state);
         },
       ),
       GoRoute(
         parentNavigatorKey: _rootNavigatorKey,
-        path: RouteConfig.homeRoute.path,
-        name: RouteConfig.homeRoute.name,
+        path: AppRoutes.homeRoute.path,
+        name: AppRoutes.homeRoute.name,
         pageBuilder: (context, state) {
           return _buildPage(page: BooksPage(), state: state);
         },
         routes: [
           GoRoute(
             parentNavigatorKey: _rootNavigatorKey,
-            path: RouteConfig.favoritesRoute.path,
-            name: RouteConfig.favoritesRoute.name,
+            path: AppRoutes.favoritesRoute.path,
+            name: AppRoutes.favoritesRoute.name,
             pageBuilder: (context, state) {
               return _buildPage(page: FavoriteBooksPage(), state: state);
             },
@@ -71,12 +71,12 @@ class RouteManager {
   }
 }
 
-enum RouteConfig {
+enum AppRoutes {
   splashRoute('/splash'),
   homeRoute('/home'),
   favoritesRoute('favorites');
 
-  const RouteConfig(this.path);
+  const AppRoutes(this.path);
 
   final String path;
 

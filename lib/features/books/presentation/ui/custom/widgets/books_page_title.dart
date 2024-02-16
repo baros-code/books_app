@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../shared/presentation/extensions/build_context_ext.dart';
+
 class BooksPageTitle extends StatelessWidget {
   const BooksPageTitle(this.title, {super.key});
 
@@ -9,11 +11,7 @@ class BooksPageTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 30,
-        fontWeight: FontWeight.bold,
-      ),
+      style: context.textTheme.headlineLarge,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );

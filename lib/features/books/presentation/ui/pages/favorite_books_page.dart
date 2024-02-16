@@ -22,11 +22,7 @@ class FavoriteBooksPage
   Widget build(BuildContext context) {
     return BasePage(
       title: const BooksPageTitle('Favoriler'),
-      // TODO(Baran): Add these colors as primary color to the theme
-      // Color(0XFF4893EB),
       backButtonEnabled: true,
-      appBarBackgroundColor: const Color(0xFF1C242A),
-      backgroundColor: const Color(0xFF1C242A),
       body: _Body(),
     );
   }
@@ -43,9 +39,7 @@ class _Body extends SubView<FavoriteBooksPageController> {
       child: Column(
         children: [
           CustomSearchBar(
-            hintStyle: const TextStyle(color: Colors.white),
-            backgroundColor: Colors.transparent,
-            leading: const Icon(Icons.search, color: Colors.white),
+            leading: const Icon(Icons.search, size: 30),
             onChange: (value) => controller.searchBooks(value),
           ),
           const SizedBox(height: 8),

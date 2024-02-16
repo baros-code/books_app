@@ -2,7 +2,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../configs/router/route_manager.dart';
+import '../../../../configs/route_config.dart';
 import '../../../../features/books/presentation/bloc/books_cubit.dart';
 import '../../../../stack/base/presentation/controller.dart';
 
@@ -26,7 +26,7 @@ class SplashPageController extends Controller<Object> {
     // Spend some time to show the animation
     Future.delayed(
       _animationDuration,
-      () => context.goNamed(RouteConfig.homeRoute.name),
+      () => context.goNamed(AppRoutes.homeRoute.name),
     );
   }
 
