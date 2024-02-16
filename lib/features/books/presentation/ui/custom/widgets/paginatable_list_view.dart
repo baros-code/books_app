@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../shared/presentation/ui/custom/widgets/custom_progress_spinner.dart';
 import '../../../../../../shared/presentation/ui/custom/widgets/empty_view.dart';
 import '../../../../../../stack/core/ioc/service_locator.dart';
 import '../../../../../../stack/core/popup/popup_manager.dart';
@@ -65,9 +66,7 @@ class _PaginatableListViewState<T extends Object>
     final itemsLength = _animateCallback(visibleItems.length);
     _updateCurrentPageNum();
 
-    if (_isFirstLoading && itemsLength == 0) {
-      return _buildSpinner();
-    } else if (_isFirstLoadFailed) {
+    if (_isFirstLoadFailed) {
       return _buildErrorView();
     } else if (visibleItems.isEmpty && widget.emptyMessage != null) {
       return _buildEmptyView(widget.emptyMessage);
@@ -206,11 +205,7 @@ class _PaginatableListViewState<T extends Object>
         return _isLoadingPage && index == itemsLength - 1
             ? const Padding(
                 padding: EdgeInsets.only(top: 16),
-                child: SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: CircularProgressIndicator(),
-                ),
+                child: CustomProgressSpinner(),
               )
             : Padding(
                 padding: widget.itemSpacing != null &&
@@ -220,15 +215,6 @@ class _PaginatableListViewState<T extends Object>
                 child: items[index].widget,
               );
       },
-    );
-  }
-
-  Widget _buildSpinner() {
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).padding.bottom,
-      ),
-      child: const CircularProgressIndicator(),
     );
   }
 

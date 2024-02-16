@@ -14,6 +14,7 @@ class TAppTheme {
     brightness: Brightness.dark,
     colorScheme: const ColorScheme.dark(
       primary: ThemeConstants.darkThemePrimaryColor,
+      secondary: ThemeConstants.darkThemeDisabledButtonBackgroundColor,
       background: ThemeConstants.darkThemeBackgroundColor,
     ),
     primaryColor: ThemeConstants.darkThemeBackgroundColor,

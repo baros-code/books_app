@@ -35,6 +35,10 @@ class FavoritesListView extends StatelessWidget {
                   : const SizedBox.shrink();
             },
           )
-        : const Center(child: EmptyView.builder());
+        : const Center(
+            child: EmptyView.builder(
+              text: 'Henüz favori kitabın yok.',
+            ),
+          );
   }
 }

@@ -35,12 +35,12 @@ class TTextTheme {
     ),
     titleSmall: const TextStyle().copyWith(
       fontSize: 16,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       color: ThemeConstants.darkThemeTextPrimaryColor,
     ),
     bodyLarge: const TextStyle().copyWith(
       fontSize: 14,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.normal,
       color: ThemeConstants.darkThemeTextPrimaryColor,
     ),
     bodyMedium: const TextStyle().copyWith(
@@ -50,7 +50,7 @@ class TTextTheme {
     ),
     bodySmall: const TextStyle().copyWith(
       fontSize: 14,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.normal,
       color: ThemeConstants.darkThemeTextPrimaryColor,
     ),
     labelLarge: const TextStyle().copyWith(
@@ -61,7 +61,12 @@ class TTextTheme {
     labelMedium: const TextStyle().copyWith(
       fontSize: 12,
       fontWeight: FontWeight.normal,
-      color: ThemeConstants.darkThemeTextPrimaryColor.withOpacity(0.5),
+      color: ThemeConstants.darkThemeTextPrimaryColor,
+    ),
+    labelSmall: const TextStyle().copyWith(
+      fontSize: 12,
+      fontWeight: FontWeight.normal,
+      color: ThemeConstants.darkThemeTextPrimaryColor,
     ),
   );
 }

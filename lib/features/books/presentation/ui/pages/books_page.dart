@@ -63,7 +63,7 @@ class _Body extends SubView<BooksPageController> {
     if (books.isEmpty && state is BooksLoading) {
       return const Expanded(
         child: Center(
-          child: CircularProgressIndicator(),
+          child: SizedBox(child: CircularProgressIndicator()),
         ),
       );
     }
@@ -87,7 +87,7 @@ class _Body extends SubView<BooksPageController> {
         itemSpacing: 12,
         pageSize: controller.pageSize,
         maxItemCount: controller.maxItemCount,
-        errorMessage: 'errorMessage',
+        errorMessage: 'Kitaplar yüklenirken bir hata oluştu!',
         onPagination: (pageIndex) {
           return controller.fetchBooks(pageIndex);
         },

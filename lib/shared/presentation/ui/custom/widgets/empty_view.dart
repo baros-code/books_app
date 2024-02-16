@@ -9,51 +9,41 @@ class EmptyView extends StatelessWidget {
     this.text,
     this.imagePath,
     this.textStyle,
-    this.imageWidth,
-    this.imageHeight,
-    this.textDistanceFromImage = 4,
-    this.onTryAgain,
   });
 
   final String? text;
   final String? imagePath;
   final TextStyle? textStyle;
-  final double? imageWidth;
-  final double? imageHeight;
-  final double? textDistanceFromImage;
-  final VoidCallback? onTryAgain;
 
   const EmptyView.builder({
     super.key,
     this.text,
     this.imagePath = AssetConfig.bookPlaceHolder,
-    this.imageWidth,
-    this.imageHeight,
     this.textStyle,
-    this.textDistanceFromImage,
-    this.onTryAgain,
   });
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final imageHeight = screenHeight * 0.25;
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.bottomCenter,
         children: [
-          Flexible(
-            child: Image.asset(
-              imagePath ?? AssetConfig.bookPlaceHolder,
-              width: imageWidth ?? 200,
-              height: imageHeight ?? 200,
-            ),
+          Image.asset(
+            imagePath ?? AssetConfig.bookPlaceHolder,
+            height: screenHeight * 0.25,
+            alignment: Alignment.topCenter,
+            fit: BoxFit.fitWidth,
           ),
-          SizedBox(height: textDistanceFromImage),
           if (text != null)
-            Flexible(
+            Positioned(
+              bottom: imageHeight * 0.1,
               child: Text(
                 text!,
-                style: textStyle ?? context.textTheme.bodySmall!,
+                style: textStyle ?? context.textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),
             ),

@@ -25,6 +25,7 @@ class BookCard extends StatefulWidget {
 class _BookCardState extends State<BookCard> {
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     final isFavorite = widget.book.isFavorite;
     final title = widget.book.bookInfo.title;
     final author = widget.book.bookInfo.author;
@@ -46,7 +47,7 @@ class _BookCardState extends State<BookCard> {
         });
       },
       child: CustomCard(
-        height: 125,
+        height: screenHeight * 0.18,
         padding: const EdgeInsets.all(8),
         backgroundColor: context.colorScheme.background,
         showBorder: true,
@@ -68,11 +69,9 @@ class _BookCardState extends State<BookCard> {
                 children: [
                   _CardContent(
                     title,
-                    textStyle: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    textStyle: context.textTheme.headlineSmall,
                   ),
-                  const Divider(thickness: 1),
+                  Divider(thickness: 1, color: context.colorScheme.secondary),
                   _CardContent(
                     'Author: $author',
                     isVisible: author.isNotEmpty,
@@ -85,7 +84,7 @@ class _BookCardState extends State<BookCard> {
                   Row(
                     children: [
                       _CardContent(
-                        'Published Date: $publishedDate',
+                        'Published at: $publishedDate',
                         isVisible: publishedDate.isNotEmpty,
                       ),
                       if (publishedDate.isNotEmpty) const SizedBox(width: 8),
@@ -125,7 +124,7 @@ class _CardContent extends StatelessWidget {
             content,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: textStyle,
+            style: textStyle ?? context.textTheme.labelSmall,
           )
         : const SizedBox.shrink();
   }
