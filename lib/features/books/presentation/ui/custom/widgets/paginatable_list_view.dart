@@ -37,7 +37,6 @@ class _PaginatableListViewState<T extends Object>
   late List<PaginatableListViewItem<T>> _items;
   int _currentPageNum = 0;
   bool _isLoadingPage = false;
-  bool _isFirstLoading = false;
   bool _isFirstLoadFailed = false;
 
   @override
@@ -103,7 +102,6 @@ class _PaginatableListViewState<T extends Object>
       return;
     }
     _isLoadingPage = true;
-    _isFirstLoading = true;
     final isPaginationSuccessful = await widget.onPagination(
       _currentPageNum,
     );
@@ -115,7 +113,6 @@ class _PaginatableListViewState<T extends Object>
           _isFirstLoadFailed = true;
         }
         _isLoadingPage = false;
-        _isFirstLoading = false;
       });
     }
   }

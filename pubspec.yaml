@@ -18,7 +18,6 @@ dependencies:
   equatable: ^2.0.5
   visibility_aware_state: ^1.0.5
   get_it: ^7.6.7
-  fluro: ^2.0.5
   dio: ^5.4.0
   uuid: ^4.3.3
   dio_smart_retry: ^6.0.0
@@ -29,7 +28,6 @@ dependencies:
   hive: ^2.2.3
   flutter_secure_storage: ^9.0.0
   path_provider: ^2.1.2
-  styled_text: ^8.1.0
   json_annotation: ^4.8.1
   cached_network_image: ^3.3.1
 

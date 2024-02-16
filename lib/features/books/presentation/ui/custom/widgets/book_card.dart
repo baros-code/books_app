@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../configs/asset_config.dart';
 import '../../../../../../shared/presentation/extensions/build_context_ext.dart';
 import '../../../../../../shared/presentation/ui/custom/widgets/custom_card.dart';
+import '../../../../../../shared/presentation/ui/custom/widgets/custom_progress_spinner.dart';
 import '../../models/book_ui_model.dart';
 
 class BookCard extends StatefulWidget {
@@ -51,14 +52,15 @@ class _BookCardState extends State<BookCard> {
         padding: const EdgeInsets.all(8),
         backgroundColor: context.colorScheme.background,
         showBorder: true,
-        borderWidth: isFavorite ? 4 : 1,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
-        borderColor: context.colorScheme.primary,
+        borderColor: isFavorite ? Colors.green : context.colorScheme.primary,
         child: Row(
           children: [
             CachedNetworkImage(
               imageUrl: imageLinks.smallThumbnail,
-              placeholder: (context, url) => const CircularProgressIndicator(),
+              fit: BoxFit.cover,
+              width: 80,
+              placeholder: (context, url) => const CustomProgressSpinner(),
               errorWidget: (context, url, error) =>
                   Image.asset(AssetConfig.bookPlaceHolder),
             ),

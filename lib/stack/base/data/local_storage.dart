@@ -18,11 +18,6 @@ abstract class LocalStorage<T extends Object> {
 
   final Logger _logger;
 
-  // Unique item key consists of the given generic type's string representation
-  // and some random characters appended to it. Because it's important
-  // not to match with any other key when another item is manually added.
-  final String _uniqueItemKey = '${T.toString()}-11ffbf9b510648da';
-
   var _isInitialized = false;
 
   /// Adds or updates a single [item] in [T] type by [key] in the storage.
@@ -81,18 +76,6 @@ abstract class LocalStorage<T extends Object> {
     }
     _logger.debug('Items fetched from local storage: $items');
     return Result.success(value: items);
-  }
-
-  /// Updates the unique [item] representing [T] type in the storage.
-  @protected
-  Future<void> updateUniqueItem(T? item) {
-    return putSingle(_uniqueItemKey, item);
-  }
-
-  /// Removes the unique [item] representing [T] type from the storage.
-  @protected
-  Future<void> removeUniqueItem() {
-    return removeSingle(_uniqueItemKey);
   }
 
   static Future<void> dispose() {

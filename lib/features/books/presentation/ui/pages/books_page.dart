@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../shared/presentation/ui/custom/widgets/custom_progress_spinner.dart';
 import '../../../../../shared/presentation/ui/custom/widgets/custom_search_bar.dart';
 import '../../../../../shared/presentation/ui/custom/widgets/empty_view.dart';
 import '../../../../../shared/presentation/ui/pages/base_page.dart';
@@ -63,7 +64,7 @@ class _Body extends SubView<BooksPageController> {
     if (books.isEmpty && state is BooksLoading) {
       return const Expanded(
         child: Center(
-          child: SizedBox(child: CircularProgressIndicator()),
+          child: SizedBox(child: CustomProgressSpinner()),
         ),
       );
     }
