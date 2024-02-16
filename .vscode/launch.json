@@ -7,20 +7,20 @@
         {
             "name": "books_app",
             "request": "launch",
-            "program": "lib/main/main.dart",
+            "program": "lib/main.dart",
             "type": "dart"
         },
         {
             "name": "books_app (profile mode)",
             "request": "launch",
-            "program": "lib/main/main.dart",
+            "program": "lib/main.dart",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
             "name": "books_app (release mode)",
             "request": "launch",
-            "program": "lib/main/main.dart",
+            "program": "lib/main.dart",
             "type": "dart",
             "flutterMode": "release"
         }

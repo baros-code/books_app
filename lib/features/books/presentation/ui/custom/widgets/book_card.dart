@@ -26,7 +26,6 @@ class BookCard extends StatefulWidget {
 class _BookCardState extends State<BookCard> {
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     final isFavorite = widget.book.isFavorite;
     final title = widget.book.bookInfo.title;
     final author = widget.book.bookInfo.author;
@@ -48,7 +47,7 @@ class _BookCardState extends State<BookCard> {
         });
       },
       child: CustomCard(
-        height: screenHeight * 0.18,
+        height: 120,
         padding: const EdgeInsets.all(8),
         backgroundColor: context.colorScheme.background,
         showBorder: true,

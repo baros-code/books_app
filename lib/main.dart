@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../configs/api_config.dart';
-import '../configs/dependency/dependency_imports.dart';
-import '../stack/core/ioc/service_locator.dart';
-import '../stack/core/logging/logger.dart';
-import '../stack/core/network/api_manager.dart';
+import 'configs/api_config.dart';
+import 'configs/dependency/dependency_imports.dart';
 import 'main_app.dart';
+import 'stack/core/ioc/service_locator.dart';
+import 'stack/core/logging/logger.dart';
+import 'stack/core/network/api_manager.dart';
 
 void main() {
   runZonedGuarded(
