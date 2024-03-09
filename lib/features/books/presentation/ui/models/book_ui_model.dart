@@ -42,4 +42,7 @@ class BookUiModel extends Book {
       isFavorite: isFavorite ?? this.isFavorite,
     );
   }
+
+  @override
+  List<Object> get props => [id, bookInfo, isVisible, isFavorite];
 }

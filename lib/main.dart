@@ -29,7 +29,6 @@ Future<void> _initializeComponents() async {
   WidgetsFlutterBinding.ensureInitialized();
   locator.initialize(external: DependencyConfig.register);
   locator<ApiManager>().setup(ApiConfig.setupParams);
-  locator<Logger>();
 }
 
 void _onFlutterError(FlutterErrorDetails error) {
